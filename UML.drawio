@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-03-19T22:40:24.154Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.3 Safari/605.1.15" etag="_C450dRi9n6BGwFSTwwC" version="21.0.8" type="github">
+<mxfile host="app.diagrams.net" modified="2023-03-19T22:40:44.890Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.3 Safari/605.1.15" etag="XkZnsA_sf5RM-U4fPVce" version="21.0.8" type="github">
   <diagram name="Page-1" id="YE-4Yr6UMJsn9fa2ZkE0">
     <mxGraphModel dx="2845" dy="2323" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -49,7 +49,7 @@
         <mxCell id="0RnFH8Ulky1QDVAtq8hC-24" value="+ setFeedingTime(Array): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="0RnFH8Ulky1QDVAtq8hC-21" vertex="1">
           <mxGeometry y="34" width="200" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="0RnFH8Ulky1QDVAtq8hC-25" value="AnimalAnimals" style="swimlane;fontStyle=3;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
+        <mxCell id="0RnFH8Ulky1QDVAtq8hC-25" value="Animal" style="swimlane;fontStyle=3;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
           <mxGeometry x="365" y="-460" width="270" height="242" as="geometry" />
         </mxCell>
         <mxCell id="0RnFH8Ulky1QDVAtq8hC-26" value="- name: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="0RnFH8Ulky1QDVAtq8hC-25" vertex="1">
