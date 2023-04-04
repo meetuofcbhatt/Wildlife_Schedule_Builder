@@ -1,7 +1,7 @@
 package edu.ucalgary.oop;
 
 import java.util.*;
-import java.sql.*;
+// import java.sql.*;
 
 public class Scheduler {
 
@@ -127,18 +127,18 @@ public class Scheduler {
 
     public static void main(String[] args){
         
-        try {
-			Connection con=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/EWR","oop","password");
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM ANIMALS");
-			while (rs.next()) {
-				System.out.println(rs.getString("AnimalID") + ", " + rs.getString("AnimalNickname") + ", " + rs.getString("AnimalSpecies"));
-			}
-			con.close();
-		} catch (SQLException e) {
-			System.out.println("error happened");
-			e.printStackTrace();
-		}
+        // try {
+		// 	Connection con=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/EWR","oop","password");
+		// 	Statement stmt = con.createStatement();
+		// 	ResultSet rs = stmt.executeQuery("SELECT * FROM ANIMALS");
+		// 	while (rs.next()) {
+		// 		System.out.println(rs.getString("AnimalID") + ", " + rs.getString("AnimalNickname") + ", " + rs.getString("AnimalSpecies"));
+		// 	}
+		// 	con.close();
+		// } catch (SQLException e) {
+		// 	System.out.println("error happened");
+		// 	e.printStackTrace();
+		// }
 
         Treatment treatment1 = new Treatment(new Beaver("hello", 2), new Task(1, "task1", 3, 5), 12, 2);
         Treatment treatment2 = new Treatment(new Beaver("hi", 2), new Task(1, "task2", 3, 3), 1, 2);
