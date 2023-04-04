@@ -21,13 +21,31 @@ public class Hour {
         this.minsleft -= giveTreatment.getAnimalTask().getTaskDuration();
     }
     
-    public void toggleBackup(){
-        if(this.backupvolunteer){
-            this.backupvolunteer = false;
+    public void addBackup(){
+        // if(this.backupvolunteer){
+        //     this.backupvolunteer = false;
+        //     this.hour -= 60;
+        // }
+        // else{
+        //     this.backupvolunteer = true;
+        //     this.hour += 60;
+        // }
+
+        int netmins = 0;
+            
+        for(int i = 0; i < this.hourtreatments.size(); i++){
+            netmins += hourtreatments.get(i).getAnimalTask().getTaskDuration();
+        }
+
+        if(netmins + 60 <= 120){
+            this.backupvolunteer = true;
+            this.minsleft += 60;
         }
         else{
-            this.backupvolunteer = true;
+            throw new IllegalArgumentException("Not enough time present within the hour");
         }
+
+
     }
 
     public int getHour(){

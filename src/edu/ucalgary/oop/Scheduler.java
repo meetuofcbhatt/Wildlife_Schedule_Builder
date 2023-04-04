@@ -76,10 +76,8 @@ public class Scheduler {
 
         // ArrayList<Hour> organizedhours = new ArrayList<Hour>(24);                 // this should be sorted and cannot contain duplicates
 
-        ArrayList<Hour> completeHours = new ArrayList<Hour>(24);
 
 
-        Hour currtime = new Hour(treatmentarray.get(0).getStartHour());
 
         // for(int i = 0; i < treatmentarray.size(); i++){
         //     for(int j = 0; j <= 24; j++){
@@ -95,21 +93,50 @@ public class Scheduler {
 
         // }
 
+        ArrayList<Hour> completeHours = new ArrayList<Hour>(24);
 
         for(int i = 0; i < treatmentarray.size(); i++){
-            if(currtime.getminsleft() > treatmentarray.get(i).getAnimalTask().getTaskDuration()){           // if hour has enough time in it
+
+            Hour currtime = completeHours.get(treatmentarray.get(i).getStartHour());
+            
+            if(currtime.getminsleft() >= treatmentarray.get(i).getAnimalTask().getTaskDuration()){           // if hour has enough time in it
                 currtime.addTreatment(treatmentarray.get(i));           // add treatment to the hour and update the completeHours list
-                completeHours.add(currtime.getHour(), currtime);
-                currtime = new Hour(currtime.getHour() + 1);
+                // completeHours.add(currtime.getHour(), currtime);
+                // currtime = new Hour(currtime.getHour() + 1);
             }
             else{
                 boolean placement = false;
-                Hour tempHour = currtime;
+                
+                int maxWind = treatmentarray.get(i).getAnimalTask().getMaxWindow();
 
-                for(int j = 0; j < treatmentarray.get(i).getAnimalTask().getMaxWindow(); j++){
-                    if(tempHour.getminsleft() > treatmentarray.get(i).getAnimalTask().getTaskDuration()){
-                        
+                for(int j = 0; j < maxWind; j++){
+                    Hour tempHour = completeHours.get(treatmentarray.get(i).getStartHour() + j);
+                    if(tempHour.getminsleft() >= treatmentarray.get(i).getAnimalTask().getTaskDuration()){
+                        tempHour.addTreatment(treatmentarray.get(i));
+                        placement = true;
+                        break;
                     }
+                    
+                    // TODO: add an else here
+                }
+
+                if(placement == false){
+                    
+                    for(int k = 0; k < maxWind; k++){
+                        Hour tempHour = completeHours.get(treatmentarray.get(i).getStartHour() + k); 
+                        if(!tempHour.getBackupvolunteer()){
+                            tempHour.addTreatment(treatmentarray.get(i));
+                            placement = true;
+                            break;
+                        }
+                    }
+
+                    if(placement == false){
+                        // make a custom exception here
+                        System.out.println("Schedule not possible");
+                    }
+
+
                 }
 
 
