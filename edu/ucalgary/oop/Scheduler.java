@@ -76,10 +76,10 @@ public class Scheduler {
 
         // ArrayList<Hour> organizedhours = new ArrayList<Hour>(24);                 // this should be sorted and cannot contain duplicates
 
-        ArrayList<Hour> windoworghours = new ArrayList<Hour>(24);
+        ArrayList<Hour> completeHours = new ArrayList<Hour>(24);
 
 
-        int currtime = treatmentarray.get(0).getStartHour();
+        Hour currtime = new Hour(treatmentarray.get(0).getStartHour());
 
         // for(int i = 0; i < treatmentarray.size(); i++){
         //     for(int j = 0; j <= 24; j++){
@@ -95,6 +95,28 @@ public class Scheduler {
 
         // }
 
+
+        for(int i = 0; i < treatmentarray.size(); i++){
+            if(currtime.getminsleft() > treatmentarray.get(i).getAnimalTask().getTaskDuration()){           // if hour has enough time in it
+                currtime.addTreatment(treatmentarray.get(i));           // add treatment to the hour and update the completeHours list
+                completeHours.add(currtime.getHour(), currtime);
+                currtime = new Hour(currtime.getHour() + 1);
+            }
+            else{
+                boolean placement = false;
+                Hour tempHour = currtime;
+
+                for(int j = 0; j < treatmentarray.get(i).getAnimalTask().getMaxWindow(); j++){
+                    if(tempHour.getminsleft() > treatmentarray.get(i).getAnimalTask().getTaskDuration()){
+                        
+                    }
+                }
+
+
+            }
+
+
+        }
 
 
 
