@@ -41,10 +41,26 @@ public class Scheduler {
 
         // sorting treatmentarray by startHour
 
+        // for (int i = 0; i < treatmentarray.size() - 1; i++) {
+        //     int minIndex = i;
+        //     for (int j = i + 1; j < treatmentarray.size(); j++) {
+        //         if (treatmentarray.get(j).getStartHour() < treatmentarray.get(minIndex).getStartHour()) {
+        //             minIndex = j;
+        //         }
+        //     }
+        //     if (minIndex != i) {
+        //         Treatment temp = treatmentarray.get(i);
+        //         treatmentarray.set(i, treatmentarray.get(minIndex));
+        //         treatmentarray.set(minIndex, temp);
+        //     }
+        // }
+
+        // sorting treatmentarray by MaxWindow
+
         for (int i = 0; i < treatmentarray.size() - 1; i++) {
             int minIndex = i;
             for (int j = i + 1; j < treatmentarray.size(); j++) {
-                if (treatmentarray.get(j).getStartHour() < treatmentarray.get(minIndex).getStartHour()) {
+                if (treatmentarray.get(j).getAnimalTask().getMaxWindow() < treatmentarray.get(minIndex).getAnimalTask().getMaxWindow()) {
                     minIndex = j;
                 }
             }
@@ -55,14 +71,25 @@ public class Scheduler {
             }
         }
 
+
         // this.treatments = treatmentarray;
 
-        ArrayList<Hour> organizedhours = new ArrayList<Hour>();                 // this should be sorted and cannot contain duplicates
+        // ArrayList<Hour> organizedhours = new ArrayList<Hour>(24);                 // this should be sorted and cannot contain duplicates
+
+        ArrayList<Hour> windoworghours = new ArrayList<Hour>(24);
+
 
         int currtime = treatmentarray.get(0).getStartHour();
 
         // for(int i = 0; i < treatmentarray.size(); i++){
-            
+        //     for(int j = 0; j <= 24; j++){
+        //         Hour temp_new_hour = new Hour(treatmentarray.get(i).getStartHour());
+        //         if(treatmentarray.get(i).getStartHour() == j){
+
+        //         }
+
+
+        //     }
 
 
 
@@ -79,10 +106,10 @@ public class Scheduler {
     public static void main(String[] args){
         
 
-        Treatment treatment1 = new Treatment(new Beaver("hello", 2), new Task(1, "task1", 3, 4), 12, 2);
-        Treatment treatment2 = new Treatment(new Beaver("hi", 2), new Task(1, "task2", 3, 4), 1, 2);
-        Treatment treatment3 = new Treatment(new Beaver("bingus", 2), new Task(1, "task3", 3, 4), 5, 2);
-        Treatment treatment4 = new Treatment(new Beaver("lastguy", 2), new Task(1, "task1", 3, 4), 3, 2);
+        Treatment treatment1 = new Treatment(new Beaver("hello", 2), new Task(1, "task1", 3, 5), 12, 2);
+        Treatment treatment2 = new Treatment(new Beaver("hi", 2), new Task(1, "task2", 3, 3), 1, 2);
+        Treatment treatment3 = new Treatment(new Beaver("bingus", 2), new Task(1, "task3", 3, 2), 5, 2);
+        Treatment treatment4 = new Treatment(new Beaver("lastguy", 2), new Task(1, "task1", 3, 6), 3, 2);
 
         Scheduler testscheduler = new Scheduler(treatment1);
         testscheduler.addTreatment(treatment2);
@@ -92,7 +119,7 @@ public class Scheduler {
         System.out.println("unordered");
 
         for(int i = 0; i < testscheduler.getTreatments().size(); i++){
-            System.out.println(testscheduler.getTreatments().get(i).getStartHour());
+            System.out.println(testscheduler.getTreatments().get(i).getAnimalTask().getMaxWindow());
         }
 
 
@@ -101,7 +128,7 @@ public class Scheduler {
         System.out.println("ordered");
 
         for(int i = 0; i < testscheduler.getTreatments().size(); i++){
-            System.out.println(testscheduler.getTreatments().get(i).getStartHour());
+            System.out.println(testscheduler.getTreatments().get(i).getAnimalTask().getMaxWindow());
         }
     }
 
