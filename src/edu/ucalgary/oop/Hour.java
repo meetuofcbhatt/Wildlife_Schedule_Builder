@@ -21,6 +21,17 @@ public class Hour {
         this.minsleft -= giveTreatment.getAnimalTask().getTaskDuration();
     }
     
+    public void printTreatment()
+    {
+        for(int i = 0; i < hourtreatments.size(); i++)
+        {
+            if(hourtreatments.get(i).getAnimalTask().getDescription() != null)
+            {
+                System.out.println(hourtreatments.get(i).getAnimalTask().getDescription());
+            }
+        }
+    }
+
     public void addBackup(){
         // if(this.backupvolunteer){
         //     this.backupvolunteer = false;
@@ -48,6 +59,10 @@ public class Hour {
 
     }
 
+    public int getHourTreatmentsSize()
+    {
+        return this.hourtreatments.size();
+    }
     public int getHour(){
         return this.hour;
     }

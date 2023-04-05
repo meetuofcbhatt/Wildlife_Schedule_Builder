@@ -94,8 +94,13 @@ public class Scheduler {
         // }
 
         ArrayList<Hour> completeHours = new ArrayList<Hour>(24);
+        for(int i = 0; i < 24; i++)
+        {
+            completeHours.add(new Hour(i));
+        }
 
         for(int i = 0; i < treatmentarray.size(); i++){
+            
 
             Hour currtime = completeHours.get(treatmentarray.get(i).getStartHour());
             
@@ -146,7 +151,10 @@ public class Scheduler {
         }
 
 
-
+        for(int l = 0; l < completeHours.size(); l++)
+        {
+            System.out.println("Hour " +Integer.toString(l)+ ": "+ Integer.toString(completeHours.get(l).getminsleft()));
+        }
 
 
 
@@ -183,7 +191,7 @@ public class Scheduler {
             System.out.println(testscheduler.getTreatments().get(i).getAnimalTask().getMaxWindow());
         }
 
-
+        System.out.println("Hours: ");
         testscheduler.organize();
 
         System.out.println("ordered");
