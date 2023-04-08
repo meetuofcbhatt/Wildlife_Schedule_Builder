@@ -35,7 +35,7 @@ public class Scheduler {
         return this.treatments;
     }
 
-    public void organize(){
+    public void organize() throws UnavoidableOverlapException{
 
         ArrayList<Treatment> treatmentarray = this.treatments;
 
@@ -139,6 +139,7 @@ public class Scheduler {
                     if(placement == false){
                         // make a custom exception here
                         System.out.println("Schedule not possible");
+                        throw new UnavoidableOverlapException();
                     }
 
 
@@ -160,46 +161,46 @@ public class Scheduler {
 
     }
 
-    public static void main(String[] args){
+    // public static void main(String[] args){
         
-        // try {
-		// 	Connection con=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/EWR","oop","password");
-		// 	Statement stmt = con.createStatement();
-		// 	ResultSet rs = stmt.executeQuery("SELECT * FROM ANIMALS");
-		// 	while (rs.next()) {
-		// 		System.out.println(rs.getString("AnimalID") + ", " + rs.getString("AnimalNickname") + ", " + rs.getString("AnimalSpecies"));
-		// 	}
-		// 	con.close();
-		// } catch (SQLException e) {
-		// 	System.out.println("error happened");
-		// 	e.printStackTrace();
-		// }
+    //     // try {
+	// 	// 	Connection con=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/EWR","oop","password");
+	// 	// 	Statement stmt = con.createStatement();
+	// 	// 	ResultSet rs = stmt.executeQuery("SELECT * FROM ANIMALS");
+	// 	// 	while (rs.next()) {
+	// 	// 		System.out.println(rs.getString("AnimalID") + ", " + rs.getString("AnimalNickname") + ", " + rs.getString("AnimalSpecies"));
+	// 	// 	}
+	// 	// 	con.close();
+	// 	// } catch (SQLException e) {
+	// 	// 	System.out.println("error happened");
+	// 	// 	e.printStackTrace();
+	// 	// }
 
-        Treatment treatment1 = new Treatment(new Beaver("hello", 2), new Task(1, "task1", 3, 5), 12, 2);
-        Treatment treatment2 = new Treatment(new Beaver("hi", 2), new Task(1, "task2", 3, 3), 1, 2);
-        Treatment treatment3 = new Treatment(new Beaver("bingus", 2), new Task(1, "task3", 3, 2), 5, 2);
-        Treatment treatment4 = new Treatment(new Beaver("lastguy", 2), new Task(1, "task1", 3, 6), 3, 2);
+    //     // Treatment treatment1 = new Treatment(new Beaver("hello", 2), new Task(1, "task1", 3, 5), 12, 2);
+    //     // Treatment treatment2 = new Treatment(new Beaver("hi", 2), new Task(1, "task2", 3, 3), 1, 2);
+    //     // Treatment treatment3 = new Treatment(new Beaver("bingus", 2), new Task(1, "task3", 3, 2), 5, 2);
+    //     // Treatment treatment4 = new Treatment(new Beaver("lastguy", 2), new Task(1, "task1", 3, 6), 3, 2);
 
-        Scheduler testscheduler = new Scheduler(treatment1);
-        testscheduler.addTreatment(treatment2);
-        testscheduler.addTreatment(treatment3);
-        testscheduler.addTreatment(treatment4);
+    //     // Scheduler testscheduler = new Scheduler(treatment1);
+    //     // testscheduler.addTreatment(treatment2);
+    //     // testscheduler.addTreatment(treatment3);
+    //     // testscheduler.addTreatment(treatment4);
 
-        System.out.println("unordered");
+    //     // System.out.println("unordered");
 
-        for(int i = 0; i < testscheduler.getTreatments().size(); i++){
-            System.out.println(testscheduler.getTreatments().get(i).getAnimalTask().getMaxWindow());
-        }
+    //     // for(int i = 0; i < testscheduler.getTreatments().size(); i++){
+    //     //     System.out.println(testscheduler.getTreatments().get(i).getAnimalTask().getMaxWindow());
+    //     // }
 
-        System.out.println("Hours: ");
-        testscheduler.organize();
+    //     // System.out.println("Hours: ");
+    //     // testscheduler.organize();
 
-        System.out.println("ordered");
+    //     // System.out.println("ordered");
 
-        for(int i = 0; i < testscheduler.getTreatments().size(); i++){
-            System.out.println(testscheduler.getTreatments().get(i).getAnimalTask().getMaxWindow());
-        }
-    }
+    //     // for(int i = 0; i < testscheduler.getTreatments().size(); i++){
+    //     //     System.out.println(testscheduler.getTreatments().get(i).getAnimalTask().getMaxWindow());
+    //     // }
+    // }
 
 
 
