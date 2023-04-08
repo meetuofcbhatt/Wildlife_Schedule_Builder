@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.sql.*;
 
 
 public class GUIEWR extends JFrame implements ActionListener{
@@ -42,7 +43,51 @@ public class GUIEWR extends JFrame implements ActionListener{
 
     public void actionPerformed(ActionEvent event){
 
+        //count each animal type
+        int coyCount = 0;
+        int foxCount = 0;
+        int porCount = 0;
+        int beaCount = 0;
+        int racCount = 0;
+        //make animal list
+        ArrayList<Animal> allCoy = new ArrayList<Animal>();
+        ArrayList<Animal> allFox = new ArrayList<Animal>();
+        ArrayList<Animal> allPor = new ArrayList<Animal>();
+        ArrayList<Animal> allBea = new ArrayList<Animal>();
+        ArrayList<Animal> allRac = new ArrayList<Animal>();
         // do the SQL connection here
+        try {
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/EWR","oop","password");
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM ANIMALS");
+			while (rs.next()) {
+                if (rs.getString("AnimalSpecies") == "coyote") {
+                    allCoy.add(new Coyote(rs.getString("AnimalNickname"), rs.getInt("AnimalID")));
+                    coyCount += 1;
+                }
+                if (rs.getString("AnimalSpecies") == "beaver") {
+                    allBea.add(new Beaver(rs.getString("AnimalNickname"), rs.getInt("AnimalID")));
+                    beaCount += 1;
+                }
+                if (rs.getString("AnimalSpecies") == "fox") {
+                    allFox.add(new Fox(rs.getString("AnimalNickname"), rs.getInt("AnimalID")));
+                    foxCount += 1;
+                }
+                if (rs.getString("AnimalSpecies") == "porcupine") {
+                    allPor.add(new Porcupine(rs.getString("AnimalNickname"), rs.getInt("AnimalID")));
+                    porCount += 1;
+                }
+                if (rs.getString("AnimalSpecies") == "raccoon") {
+                    allRac.add(new Raccoon(rs.getString("AnimalNickname"), rs.getInt("AnimalID")));
+                    racCount += 1;
+                }
+				System.out.println(rs.getString("AnimalID") + ", " + rs.getString("AnimalNickname") + ", " + rs.getString("AnimalSpecies"));
+			}
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("error happened");
+			e.printStackTrace();
+		}
 
         // JOptionPane.showMessageDialog(null, "this button works");
         Treatment treatment1 = new Treatment(new Beaver("hello", 2), new Task(1, "task1", 3, 5), 12, 2);
@@ -81,18 +126,6 @@ public class GUIEWR extends JFrame implements ActionListener{
 
 
 
-        //count each animal type
-        int coy = 0;
-        int fo = 0;
-        int por = 0;
-        int bea = 0;
-        int rac = 0;
-        //make animal list
-        ArrayList<Animal> allCoy = new ArrayList<Animal>();
-        ArrayList<Animal> allFox = new ArrayList<Animal>();
-        ArrayList<Animal> allPor = new ArrayList<Animal>();
-        ArrayList<Animal> allBea = new ArrayList<Animal>();
-        ArrayList<Animal> allRac = new ArrayList<Animal>();
        
 
         
