@@ -14,6 +14,9 @@ public class Treatment {
         this.animalTask = givenAnimalTask;
         this.animalTreatment = giveAnimal;
 		this.ANIMALID = animalID;
+        if (givenAnimalTask.getTaskID() == 1) {
+            giveAnimal.removeFeedingTime();
+        }
     }
 
     public Treatment(Fox giveAnimal, Task givenAnimalTask, int givenStartHour, int animalID)
@@ -22,6 +25,9 @@ public class Treatment {
         this.animalTask = givenAnimalTask;
         this.animalTreatment = giveAnimal;
 		this.ANIMALID = animalID;
+        if (givenAnimalTask.getTaskID() == 1) {
+            giveAnimal.removeFeedingTime();
+        }
     }
 
     public Treatment(Porcupine giveAnimal, Task givenAnimalTask, int givenStartHour, int animalID)
@@ -30,6 +36,9 @@ public class Treatment {
         this.animalTask = givenAnimalTask;
         this.animalTreatment = giveAnimal;
 		this.ANIMALID = animalID;
+        if (givenAnimalTask.getTaskID() == 1) {
+            giveAnimal.removeFeedingTime();
+        }
     }
 
 
@@ -39,6 +48,9 @@ public class Treatment {
         this.animalTask = givenAnimalTask;
         this.animalTreatment = giveAnimal;
 		this.ANIMALID = animalID;
+        if (givenAnimalTask.getTaskID() == 1) {
+            giveAnimal.removeFeedingTime();
+        }
     }
 
     public Treatment(Beaver giveAnimal, Task givenAnimalTask, int givenStartHour, int animalID)
@@ -47,6 +59,9 @@ public class Treatment {
         this.animalTask = givenAnimalTask;
         this.animalTreatment = giveAnimal;
 		this.ANIMALID = animalID;
+        if (givenAnimalTask.getTaskID() == 1) {
+            giveAnimal.removeFeedingTime();
+        }
     }
 
 
@@ -79,5 +94,4 @@ public class Treatment {
     public void setStartHour(int givenStartHour) {
         this.startHour = givenStartHour;
     }
-
 }

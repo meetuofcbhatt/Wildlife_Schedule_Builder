@@ -18,9 +18,15 @@ abstract class Animal {
 		this.SPECIES = species;
 		this.ANIMALID = animalID;
 	}
+
+	public void removeFeedingTime () {
+		this.feedingTime = null;
+	}
+
 	public String getSPECIES() {
 		return this.SPECIES;
 	}
+
 	public void setName(String newName) {
 		this.name = newName;
 	}
@@ -35,5 +41,9 @@ abstract class Animal {
 	
 	public String getName() {
 		return this.name;
+	}
+
+	public int getAnimalID() {
+		return this.ANIMALID;
 	}
 }

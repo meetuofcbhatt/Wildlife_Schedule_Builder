@@ -50,39 +50,107 @@ public class GUIEWR extends JFrame implements ActionListener{
         int beaCount = 0;
         int racCount = 0;
         //make animal list
-        ArrayList<Animal> allCoy = new ArrayList<Animal>();
-        ArrayList<Animal> allFox = new ArrayList<Animal>();
-        ArrayList<Animal> allPor = new ArrayList<Animal>();
-        ArrayList<Animal> allBea = new ArrayList<Animal>();
-        ArrayList<Animal> allRac = new ArrayList<Animal>();
+        ArrayList<Coyote> allCoy = new ArrayList<>();
+        ArrayList<Fox> allFox = new ArrayList<>();
+        ArrayList<Porcupine> allPor = new ArrayList<>();
+        ArrayList<Beaver> allBea = new ArrayList<>();
+        ArrayList<Raccoon> allRac = new ArrayList<>();
+
+        ArrayList<Treatment> allTreatment = new ArrayList<>();
         // do the SQL connection here
         try {
 			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/EWR","oop","password");
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM ANIMALS");
-			while (rs.next()) {
-                if (rs.getString("AnimalSpecies") == "coyote") {
-                    allCoy.add(new Coyote(rs.getString("AnimalNickname"), rs.getInt("AnimalID")));
+			Statement stmtAnimals = con.createStatement();
+			ResultSet animals = stmtAnimals.executeQuery("SELECT * FROM ANIMALS");
+            Statement stmtTreatments = con.createStatement();
+            ResultSet treatments = stmtTreatments.executeQuery("SELECT * FROM TREATMENTS");
+            Statement stmtSpecificTasks = con.createStatement();
+            // Create all the animals from the SQL
+			while (animals.next()) {
+                if (animals.getString("AnimalSpecies").equals("coyote")) {
+                    allCoy.add(new Coyote(animals.getString("AnimalNickname"), animals.getInt("AnimalID")));
                     coyCount += 1;
                 }
-                if (rs.getString("AnimalSpecies") == "beaver") {
-                    allBea.add(new Beaver(rs.getString("AnimalNickname"), rs.getInt("AnimalID")));
+                if (animals.getString("AnimalSpecies").equals("beaver")) {
+                    allBea.add(new Beaver(animals.getString("AnimalNickname"), animals.getInt("AnimalID")));
                     beaCount += 1;
                 }
-                if (rs.getString("AnimalSpecies") == "fox") {
-                    allFox.add(new Fox(rs.getString("AnimalNickname"), rs.getInt("AnimalID")));
+                if (animals.getString("AnimalSpecies").equals("fox")) {
+                    allFox.add(new Fox(animals.getString("AnimalNickname"), animals.getInt("AnimalID")));
                     foxCount += 1;
                 }
-                if (rs.getString("AnimalSpecies") == "porcupine") {
-                    allPor.add(new Porcupine(rs.getString("AnimalNickname"), rs.getInt("AnimalID")));
+                if (animals.getString("AnimalSpecies").equals("porcupine")) {
+                    allPor.add(new Porcupine(animals.getString("AnimalNickname"), animals.getInt("AnimalID")));
                     porCount += 1;
                 }
-                if (rs.getString("AnimalSpecies") == "raccoon") {
-                    allRac.add(new Raccoon(rs.getString("AnimalNickname"), rs.getInt("AnimalID")));
+                if (animals.getString("AnimalSpecies").equals("raccoon")) {
+                    allRac.add(new Raccoon(animals.getString("AnimalNickname"), animals.getInt("AnimalID")));
                     racCount += 1;
                 }
-				System.out.println(rs.getString("AnimalID") + ", " + rs.getString("AnimalNickname") + ", " + rs.getString("AnimalSpecies"));
+				System.out.println(animals.getString("AnimalID") + ", " + animals.getString("AnimalNickname") + ", " + animals.getString("AnimalSpecies"));
 			}
+            // Create new Treatments out of all the animals, and put them into an Arraylist
+            // Currently wrong, not creating thing correctly
+            // Plan: get treatments.getInt("TaskID"), Query to get the tasks
+            while (treatments.next()) {
+                String taskToFind = "SELECT * FROM TASKS WHERE TaskID = " + treatments.getString("TaskID");
+                ResultSet specificTask = stmtSpecificTasks.executeQuery(taskToFind);
+                // System.out.println(treatments.getString("AnimalID") + ", " + treatments.getString("StartHour") + ", " + treatments.getString("TaskID"));
+                while (specificTask.next()) {
+                    // System.out.println(specificTask.getString("TaskID") + ", " + specificTask.getString("Description") + 
+                    // ", " + specificTask.getString("Duration") + ", " + specificTask.getString("MaxWindow"));
+                    for (Coyote coyoteAnimal: allCoy) {
+                        if (coyoteAnimal.getAnimalID() == treatments.getInt("AnimalID")) {
+                            allTreatment.add(new Treatment(coyoteAnimal, new Task(specificTask.getInt("TaskID"), 
+                                specificTask.getString("Description"), specificTask.getInt("Duration"), 
+                                specificTask.getInt("MaxWindow")), 
+                                treatments.getInt("StartHour"), treatments.getInt("AnimalID")));
+                        }
+                    }
+                    for (Beaver beaverAnimal: allBea) {
+                        if (beaverAnimal.getAnimalID() == treatments.getInt("AnimalID")) {
+                            allTreatment.add(new Treatment(beaverAnimal, new Task(specificTask.getInt("TaskID"), 
+                                specificTask.getString("Description"), specificTask.getInt("Duration"), 
+                                specificTask.getInt("MaxWindow")), 
+                                treatments.getInt("StartHour"), treatments.getInt("AnimalID")));
+                        }
+                    }
+                    for (Fox foxAnimal: allFox) {
+                        if (foxAnimal.getAnimalID() == treatments.getInt("AnimalID")) {
+                            allTreatment.add(new Treatment(foxAnimal, new Task(specificTask.getInt("TaskID"), 
+                                specificTask.getString("Description"), specificTask.getInt("Duration"), 
+                                specificTask.getInt("MaxWindow")), 
+                                treatments.getInt("StartHour"), treatments.getInt("AnimalID")));
+                        }
+                    }
+                    for (Porcupine porcupineAnimal: allPor) {
+                        if (porcupineAnimal.getAnimalID() == treatments.getInt("AnimalID")) {
+                            allTreatment.add(new Treatment(porcupineAnimal, new Task(specificTask.getInt("TaskID"), 
+                                specificTask.getString("Description"), specificTask.getInt("Duration"), 
+                                specificTask.getInt("MaxWindow")), 
+                                treatments.getInt("StartHour"), treatments.getInt("AnimalID")));
+                        }
+                    }
+                    for (Raccoon raccoonAnimal: allRac) {
+                        if (raccoonAnimal.getAnimalID() == treatments.getInt("AnimalID")) {
+                            allTreatment.add(new Treatment(raccoonAnimal, new Task(specificTask.getInt("TaskID"), 
+                                specificTask.getString("Description"), specificTask.getInt("Duration"), 
+                                specificTask.getInt("MaxWindow")), 
+                                treatments.getInt("StartHour"), treatments.getInt("AnimalID")));
+                        }
+                    }
+                }
+            }
+            // for (Treatment treatment: allTreatment) {
+            //     System.out.println(treatment.getStartHourString());
+            // }
+            // for (Fox foxObj: allFox) {
+            //     if (foxObj.getAnimalID() == 6) {
+            //         if (foxObj.getFeedingTime() == null) {
+            //             System.out.println("This is now null");
+            //         }
+            //     }
+            // }
 			con.close();
 		} catch (SQLException e) {
 			System.out.println("error happened");
@@ -110,6 +178,7 @@ public class GUIEWR extends JFrame implements ActionListener{
         try{
             testscheduler.organize();           // this should throw the unavoidable error exception
             // if you want to test the unavoidableoverlap exception just throw it here
+            throw new UnavoidableOverlapException();
         }
         catch(UnavoidableOverlapException e){
             new GUIUnavoidableOverlap().setVisible(true);
@@ -192,6 +261,8 @@ public class GUIEWR extends JFrame implements ActionListener{
 
 
     }
+
+
 
 
 }
