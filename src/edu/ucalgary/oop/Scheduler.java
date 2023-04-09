@@ -6,11 +6,15 @@ import java.util.*;
 public class Scheduler {
 
     private ArrayList<Treatment> treatments = new ArrayList<Treatment>();
-
+    private Hour brokenHour;
     public Scheduler(Treatment givenTreatments){
         this.treatments.add(givenTreatments);
     }
 
+    public Hour getBrokenHour()
+    {
+        return this.brokenHour;
+    }
     public void addTreatment(Treatment givenTreatment){
 
         // Should not need to use this code anymore, changed from an array to an ArrayList
@@ -35,7 +39,8 @@ public class Scheduler {
         return this.treatments;
     }
 
-    public void organize() throws UnavoidableOverlapException{
+    public void organize() throws UnavoidableOverlapException
+    {
 
         ArrayList<Treatment> treatmentarray = this.treatments;
 
@@ -139,7 +144,9 @@ public class Scheduler {
                     if(placement == false){
                         // make a custom exception here
                         System.out.println("Schedule not possible");
+                        this.brokenHour = currtime;
                         throw new UnavoidableOverlapException();
+                        
                     }
 
 

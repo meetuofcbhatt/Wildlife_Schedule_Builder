@@ -57,15 +57,22 @@ public class GUIEWR extends JFrame implements ActionListener{
         ArrayList<Raccoon> allRac = new ArrayList<>();
 
         ArrayList<Treatment> allTreatment = new ArrayList<>();
+        
         // do the SQL connection here
         try {
 			// Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/EWR","oop","password");
             Connection con=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/EWR","oop","password");
-			Statement stmtAnimals = con.createStatement();
+            
+            Statement stmtAnimals = con.createStatement();
 			ResultSet animals = stmtAnimals.executeQuery("SELECT * FROM ANIMALS");
+            
             Statement stmtTreatments = con.createStatement();
             ResultSet treatments = stmtTreatments.executeQuery("SELECT * FROM TREATMENTS");
+           
             Statement stmtSpecificTasks = con.createStatement();
+
+            //create all the 
+
             // Create all the animals from the SQL
 			while (animals.next()) {
                 if (animals.getString("AnimalSpecies").equals("coyote")) {
@@ -164,15 +171,19 @@ public class GUIEWR extends JFrame implements ActionListener{
 		}
 
         // JOptionPane.showMessageDialog(null, "this button works");
-        Treatment treatment1 = new Treatment(new Beaver("hello", 2), new Task(1, "task1", 3, 5), 12, 2);
-        Treatment treatment2 = new Treatment(new Beaver("hi", 2), new Task(1, "task2", 3, 3), 1, 2);
-        Treatment treatment3 = new Treatment(new Beaver("bingus", 2), new Task(1, "task3", 3, 2), 5, 2);
-        Treatment treatment4 = new Treatment(new Beaver("lastguy", 2), new Task(1, "task1", 3, 6), 3, 2);
+        // Treatment treatment1 = new Treatment(new Beaver("hello", 2), new Task(1, "task1", 3, 5), 12, 2);
+        // Treatment treatment2 = new Treatment(new Beaver("hi", 2), new Task(1, "task2", 3, 3), 1, 2);
+        // Treatment treatment3 = new Treatment(new Beaver("bingus", 2), new Task(1, "task3", 3, 2), 5, 2);
+        // Treatment treatment4 = new Treatment(new Beaver("lastguy", 2), new Task(1, "task1", 3, 6), 3, 2);
 
-        Scheduler testscheduler = new Scheduler(treatment1);
-        testscheduler.addTreatment(treatment2);
-        testscheduler.addTreatment(treatment3);
-        testscheduler.addTreatment(treatment4);
+        Scheduler testscheduler = new Scheduler(allTreatment.get(0));
+        for(int i = 1; i < allTreatment.size(); i++)
+        {
+            testscheduler.addTreatment(allTreatment.get(i));
+        }
+        // testscheduler.addTreatment(treatment2);
+        // testscheduler.addTreatment(treatment3);
+        // testscheduler.addTreatment(treatment4);
 
         System.out.println("unordered");
 
@@ -181,6 +192,7 @@ public class GUIEWR extends JFrame implements ActionListener{
         }
 
         System.out.println("Hours: ");
+        
         try{
             testscheduler.organize();           // this should throw the unavoidable error exception
             // if you want to test the unavoidableoverlap exception just throw it here
@@ -199,7 +211,11 @@ public class GUIEWR extends JFrame implements ActionListener{
             System.out.println(testscheduler.getTreatments().get(i).getAnimalTask().getMaxWindow());
         }
 
-
+        // System.out.println("Test allTreatment Iteration");
+        // for(int i = 0; i < allTreatment.size(); i++)
+        // {
+        //     System.out.println("i: " + Integer.toString(i) + "MaxWind: " + Integer.toString(allTreatment.get(i).getAnimalTask().getMaxWindow()));
+        // }
 
        
 
