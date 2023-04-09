@@ -59,7 +59,8 @@ public class GUIEWR extends JFrame implements ActionListener{
         ArrayList<Treatment> allTreatment = new ArrayList<>();
         // do the SQL connection here
         try {
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/EWR","oop","password");
+			// Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/EWR","oop","password");
+            Connection con=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/EWR","oop","password");
 			Statement stmtAnimals = con.createStatement();
 			ResultSet animals = stmtAnimals.executeQuery("SELECT * FROM ANIMALS");
             Statement stmtTreatments = con.createStatement();
@@ -92,15 +93,18 @@ public class GUIEWR extends JFrame implements ActionListener{
             // Create new Treatments out of all the animals, and put them into an Arraylist
             // Currently wrong, not creating thing correctly
             // Plan: get treatments.getInt("TaskID"), Query to get the tasks
-            while (treatments.next()) {
+            while (treatments.next()) 
+            {
                 String taskToFind = "SELECT * FROM TASKS WHERE TaskID = " + treatments.getString("TaskID");
                 ResultSet specificTask = stmtSpecificTasks.executeQuery(taskToFind);
                 // System.out.println(treatments.getString("AnimalID") + ", " + treatments.getString("StartHour") + ", " + treatments.getString("TaskID"));
-                while (specificTask.next()) {
+                while (specificTask.next()) 
+                {
                     // System.out.println(specificTask.getString("TaskID") + ", " + specificTask.getString("Description") + 
                     // ", " + specificTask.getString("Duration") + ", " + specificTask.getString("MaxWindow"));
                     for (Coyote coyoteAnimal: allCoy) {
-                        if (coyoteAnimal.getAnimalID() == treatments.getInt("AnimalID")) {
+                        if (coyoteAnimal.getAnimalID() == treatments.getInt("AnimalID")) 
+                        {
                             allTreatment.add(new Treatment(coyoteAnimal, new Task(specificTask.getInt("TaskID"), 
                                 specificTask.getString("Description"), specificTask.getInt("Duration"), 
                                 specificTask.getInt("MaxWindow")), 
@@ -131,7 +135,8 @@ public class GUIEWR extends JFrame implements ActionListener{
                                 treatments.getInt("StartHour"), treatments.getInt("AnimalID")));
                         }
                     }
-                    for (Raccoon raccoonAnimal: allRac) {
+                    for (Raccoon raccoonAnimal: allRac) 
+                    {
                         if (raccoonAnimal.getAnimalID() == treatments.getInt("AnimalID")) {
                             allTreatment.add(new Treatment(raccoonAnimal, new Task(specificTask.getInt("TaskID"), 
                                 specificTask.getString("Description"), specificTask.getInt("Duration"), 
@@ -141,6 +146,7 @@ public class GUIEWR extends JFrame implements ActionListener{
                     }
                 }
             }
+
             // for (Treatment treatment: allTreatment) {
             //     System.out.println(treatment.getStartHourString());
             // }
