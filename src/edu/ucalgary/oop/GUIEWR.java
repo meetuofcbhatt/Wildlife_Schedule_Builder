@@ -181,11 +181,31 @@ public class GUIEWR extends JFrame implements ActionListener{
             throw new UnavoidableOverlapException();
         }
         catch(UnavoidableOverlapException e){
+            // FIXME: this error is caused by you changing up this GUI -- call on GUIUnavoidableOverlapInstr instead 
             new GUIUnavoidableOverlap().setVisible(true);
             
             System.out.println("This is an unavoidable overlap");
         }
         // put database exception
+
+        // FIXME: try this for the above functionality
+            
+        // while(true){
+        //     try{
+        //         testscheduler.organize();           // this should throw the unavoidable error exception
+        //         // if you want to test the unavoidableoverlap exception just throw it here
+        //         // throw new UnavoidableOverlapException();
+        //         break;
+        //     }
+        //     catch(UnavoidableOverlapException e){
+        //         new GUIUnavoidableOverlap().setVisible(true);
+        //         System.out.println("This is an unavoidable overlap");
+        //         continue;
+        //     }
+        //     // put database exception
+    
+        // }
+
 
         System.out.println("ordered");
 

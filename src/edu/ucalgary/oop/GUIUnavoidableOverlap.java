@@ -34,15 +34,15 @@ public class GUIUnavoidableOverlap extends JFrame implements ActionListener, Mou
 
 
     
-    public GUIUnavoidableOverlap(){
+    public GUIUnavoidableOverlap(Treatment givenTreatment){
         super("Error: Unavoidable Overlap");
-        setupUOGUI();
+        setupUOGUI(givenTreatment);
         setSize(1250, 150);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public void setupUOGUI(){
+    public void setupUOGUI(Treatment givenTreatment){
         
         // setting up the header and main instruction panel
         instructions = new JLabel("The given schedule from the database makes it impossible to implement.");
@@ -56,8 +56,11 @@ public class GUIUnavoidableOverlap extends JFrame implements ActionListener, Mou
 
 
 
-        // TODO: get the task with the error in it here, instead of this test one
-        Treatment trialTreatment = new Treatment(new Coyote("Jeff", 12), new Task(3, "example task", 3, 5), 3, 5);
+        // TODO: get the task with the error in it here, instead of this test one -- givenTreatment
+        // Treatment trialTreatment = new Treatment(new Coyote("Jeff", 12), new Task(3, "example task", 3, 5), 3, 5);
+        Treatment trialTreatment = givenTreatment;
+
+
 
         error = new JLabel("The error is with task: \"" + trialTreatment.getAnimalTask().getDescription() + "\"" + ", here are some of the possible changes to make to fix it:");
 
@@ -233,7 +236,7 @@ public class GUIUnavoidableOverlap extends JFrame implements ActionListener, Mou
 
     public static void main(String[] args){
         // this main was made for the exclusive purpose of testing the GUI
-        new GUIUnavoidableOverlap().setVisible(true);
+        new GUIUnavoidableOverlap(new Treatment(new Coyote("cool guy", 123), new Task(1, "example task 2", 3, 5), 4, 123)).setVisible(true);
     }
 
 }

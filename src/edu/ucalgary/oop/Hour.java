@@ -10,9 +10,10 @@ public class Hour {
     private boolean backupvolunteer = false;
 
     public Hour(int givenhour){
-        if(0 < givenhour  && givenhour >= 24){
+        // TODO: fix these limits after finding out what the possible hours are -- I think its meant to be 0 - 23
+        if(0 < givenhour && givenhour >= 24){   
             this.hour = givenhour;
-            this.hourstr = givenhour + ":00";
+            this.hourstr = String.valueOf(givenhour) + ":00";
         }
     }
 
@@ -79,5 +80,8 @@ public class Hour {
         return this.backupvolunteer;
     }
 
+    public ArrayList<Treatment> getTreatments(){
+        return this.hourtreatments;
+    }
 
 }
