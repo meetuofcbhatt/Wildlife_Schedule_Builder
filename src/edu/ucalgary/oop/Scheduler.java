@@ -1,5 +1,7 @@
 package edu.ucalgary.oop;
 
+import java.io.*;
+import java.time.*;
 import java.util.*;
 // import java.sql.*;
 
@@ -1166,6 +1168,31 @@ public class Scheduler {
         {
 
             completeHours.get(l).getInfo();
+
+            String data = completeHours.get(l).getInfo();
+            LocalDate newDate = LocalDate.now().plusDays(1);
+            System.out.println(newDate);
+            if (l == 0) {
+                try {
+                    FileWriter writer = new FileWriter("schedule.txt");
+                    data = "Schedule for " + newDate + "\n\n" + data;
+                    writer.write(data);
+                    writer.close();
+                } catch (IOException e) {
+                    System.out.println("An error occurred.");
+                    e.printStackTrace();
+                }
+            }
+            else {
+                try {
+                    FileWriter writer = new FileWriter("schedule.txt", true);
+                    writer.write(data);
+                    writer.close();
+                } catch (IOException e) {
+                    System.out.println("An error occurred.");
+                    e.printStackTrace();
+                }
+            }
             // if(this.finalHours.get(l).getBackupvolunteer())
             // {
             //     System.out.print("Hour " +Integer.toString(l)+ ": "+ Integer.toString(this.finalHours.get(l).getminsleft()));

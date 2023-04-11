@@ -2,7 +2,7 @@ package edu.ucalgary.oop;
 
 import java.util.*;
 
-import javax.lang.model.util.ElementScanner14;
+
 
 public class Hour {
     private String hourstr;
