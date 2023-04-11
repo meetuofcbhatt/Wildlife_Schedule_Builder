@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.*;
 import java.util.ArrayList;
 
 import java.util.concurrent.Semaphore;
@@ -29,6 +30,7 @@ public class GUIUnavoidableOverlap extends JFrame implements ActionListener, Mou
     private JLabel deleteAlert;
     private JButton deleteConfirm;
     private JButton rescheduleConfirm;
+    private Treatment errorTreatment;
 
 
     
@@ -52,11 +54,10 @@ public class GUIUnavoidableOverlap extends JFrame implements ActionListener, Mou
         submitPanel = new JPanel();
         submitPanel.setLayout(new CardLayout());
 
-        Semaphore semaphore = new Semaphore(0);
-
         // TODO: get the task with the error in it here, instead of this test one -- givenTreatment
         // Treatment trialTreatment = new Treatment(new Coyote("Jeff", 12), new Task(3, "example task", 3, 5), 3, 5);
         Treatment trialTreatment = givenTreatment;
+        this.errorTreatment = givenTreatment;
 
 
 
@@ -141,7 +142,21 @@ public class GUIUnavoidableOverlap extends JFrame implements ActionListener, Mou
                 }
     
     
-                // TODO: put the code for modifying the duration and start hour here
+                try {
+                    Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/EWR","oop","password");
+                    Statement stmt = con.createStatement();
+                    stmt.executeUpdate("SET SQL_SAFE_UPDATES = 0;");
+                    String specifyDelete = "UPDATE TREATMENTS SET StartHour = " + givenstartHour + " WHERE AnimalID = " + String.valueOf(this.errorTreatment.getAnimal().getAnimalID()) + " AND TaskID = " 
+                    + String.valueOf(errorTreatment.getAnimalTask().getTaskID()) +  " AND StartHour = " + String.valueOf(this.errorTreatment.getStartHour()) + ";";
+                    int linesChanged = stmt.executeUpdate(specifyDelete);
+                    System.out.println(String.valueOf(linesChanged));
+                    con.close();
+                } catch (SQLException sqlE) {
+                    System.out.println("error happened");
+                    sqlE.printStackTrace();
+                }
+                new GUIEWR().setVisible(true);
+                this.dispose();
             }
 
 
@@ -152,12 +167,27 @@ public class GUIUnavoidableOverlap extends JFrame implements ActionListener, Mou
             if(src == deleteConfirm){
                 // TODO: put the code for deleting the task from the data base here
                 System.out.println("Delete button working");
+                try {
+                    Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/EWR","oop","password");
+                    Statement stmt = con.createStatement();
+                    stmt.executeUpdate("SET SQL_SAFE_UPDATES = 0;");
+                    String specifyDelete = "DELETE FROM TREATMENTS WHERE AnimalID = " + String.valueOf(this.errorTreatment.getAnimal().getAnimalID()) + " AND TaskID = " 
+                    + String.valueOf(errorTreatment.getAnimalTask().getTaskID()) +  " AND StartHour = " + String.valueOf(this.errorTreatment.getStartHour()) + ";";
+                    int linesDeleted = stmt.executeUpdate(specifyDelete);
+                    System.out.println(String.valueOf(linesDeleted));
+                    con.close();
+                } catch (SQLException sqlE) {
+                    System.out.println("error happened");
+                    sqlE.printStackTrace();
+                }
+                new GUIEWR().setVisible(true);
+                this.dispose();
             }
         }
 
-        new GUIEWR().setVisible(true);
+        
 
-        this.dispose();
+        
 
 
     }
