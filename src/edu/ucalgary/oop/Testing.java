@@ -465,29 +465,7 @@ public class Testing {
         String expStr = "2:00\n* Kit Feeding (One, Two, and Three)\n* Feeding - coyote (1: Feeding - coyote (1: Coyote1))\n* Feeding - beaver (1: Feeding - beaver (1: Beaver1))\n* Feeding - porcupine (1: Feeding - porcupine (1: Por1))\n* Feeding - raccoon (1: Feeding - raccoon (1: Rac1))\n\n";
         assertEquals(expStr, newHour.getInfo());
     }
-    // /**
-    //  * Tests the functionality of the organize() method in the schedulers class. This method adds a new treatment (treatment2) to the scheduler,
-    //  *  calls the organize() method and then checks if the treatments are properly organized.
-    //  * @throws UnavoidableOverlapException if there is an unavoidable overlap between two treatments
-    //  */
-    // @Test
-    // public void testOrganize() throws UnavoidableOverlapException {
-    //     scheduler.addTreatment(treatment2);
-    //     scheduler.organize();
-    //     ArrayList<Treatment> treatments  = scheduler.getTreatments();
-    //     assertEquals( "Expected the treatments ArrayList to have size 2, but instead it had size <actual size>",2, treatments.size());
-    //     assertEquals("Expected the first treatment to be <expected treatment>, but instead it was <actual treatment>",treatment1, treatments.get(0));
-    //     assertEquals("Expected the second treatment to be <expected treatment>, but instead it was <actual treatment>",treatment2, treatments.get(1));
-    // }
-   
-    // // @Test(expected = UnavoidableOverlapException.class)
-    // // public void testOrganizeWithOverlap() throws UnavoidableOverlapException {
-    // //     Beaver beaver = new Beaver("john", 3);
-    // //     Treatment treatment3 = new Treatment(beaver, new Task(9, "Eyedrops", 35, 1), 11, 3);
-    // //     scheduler.addTreatment(treatment2);
-    // //     scheduler.addTreatment(treatment3);
-    // //     scheduler.organize();
-    // // }
+    
    
 }
 
