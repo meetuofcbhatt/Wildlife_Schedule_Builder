@@ -144,11 +144,12 @@ public class GUIUnavoidableOverlap extends JFrame implements ActionListener, Mou
     
                 try {
                     Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/EWR","oop","password");
-                    Statement stmt = con.createStatement();
-                    stmt.executeUpdate("SET SQL_SAFE_UPDATES = 0;");
-                    String specifyDelete = "UPDATE TREATMENTS SET StartHour = " + givenstartHour + " WHERE AnimalID = " + String.valueOf(this.errorTreatment.getAnimal().getAnimalID()) + " AND TaskID = " 
+                    PreparedStatement stmt = con.prepareStatement("SET SQL_SAFE_UPDATES = 0;");
+                    stmt.executeUpdate();
+                    String specifyUpdate = "UPDATE TREATMENTS SET StartHour = " + givenstartHour + " WHERE AnimalID = " + String.valueOf(this.errorTreatment.getAnimal().getAnimalID()) + " AND TaskID = " 
                     + String.valueOf(errorTreatment.getAnimalTask().getTaskID()) +  " AND StartHour = " + String.valueOf(this.errorTreatment.getStartHour()) + ";";
-                    int linesChanged = stmt.executeUpdate(specifyDelete);
+                    stmt = con.prepareStatement(specifyUpdate);
+                    int linesChanged = stmt.executeUpdate(specifyUpdate);
                     System.out.println(String.valueOf(linesChanged));
                     con.close();
                 } catch (SQLException sqlE) {
@@ -169,10 +170,11 @@ public class GUIUnavoidableOverlap extends JFrame implements ActionListener, Mou
                 System.out.println("Delete button working");
                 try {
                     Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/EWR","oop","password");
-                    Statement stmt = con.createStatement();
-                    stmt.executeUpdate("SET SQL_SAFE_UPDATES = 0;");
+                    PreparedStatement stmt = con.prepareStatement("SET SQL_SAFE_UPDATES = 0;");
+                    stmt.executeUpdate();
                     String specifyDelete = "DELETE FROM TREATMENTS WHERE AnimalID = " + String.valueOf(this.errorTreatment.getAnimal().getAnimalID()) + " AND TaskID = " 
                     + String.valueOf(errorTreatment.getAnimalTask().getTaskID()) +  " AND StartHour = " + String.valueOf(this.errorTreatment.getStartHour()) + ";";
+                    stmt = con.prepareStatement(specifyDelete);
                     int linesDeleted = stmt.executeUpdate(specifyDelete);
                     System.out.println(String.valueOf(linesDeleted));
                     con.close();

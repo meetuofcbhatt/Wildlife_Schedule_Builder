@@ -64,13 +64,13 @@ public class GUIEWR extends JFrame implements ActionListener{
 			// Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/EWR","oop","password");
             Connection con=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/EWR","oop","password");
             
-            Statement stmtAnimals = con.createStatement();
-			ResultSet animals = stmtAnimals.executeQuery("SELECT * FROM ANIMALS");
+            PreparedStatement stmtAnimals = con.prepareStatement("SELECT * FROM ANIMALS");
+			ResultSet animals = stmtAnimals.executeQuery();
             
-            Statement stmtTreatments = con.createStatement();
-            ResultSet treatments = stmtTreatments.executeQuery("SELECT * FROM TREATMENTS");
+            PreparedStatement stmtTreatments = con.prepareStatement("SELECT * FROM TREATMENTS");
+            ResultSet treatments = stmtTreatments.executeQuery();
            
-            Statement stmtSpecificTasks = con.createStatement();
+            
 
             //create all the 
 
@@ -104,6 +104,7 @@ public class GUIEWR extends JFrame implements ActionListener{
             while (treatments.next()) 
             {
                 String taskToFind = "SELECT * FROM TASKS WHERE TaskID = " + treatments.getString("TaskID");
+                PreparedStatement stmtSpecificTasks = con.prepareStatement(taskToFind);
                 ResultSet specificTask = stmtSpecificTasks.executeQuery(taskToFind);
                 // System.out.println(treatments.getString("AnimalID") + ", " + treatments.getString("StartHour") + ", " + treatments.getString("TaskID"));
                 while (specificTask.next()) 
