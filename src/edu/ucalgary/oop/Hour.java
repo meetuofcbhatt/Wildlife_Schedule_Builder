@@ -31,7 +31,7 @@ public class Hour {
         int calcDuration = prep + (aniNumb * dur);
         //descrption of task needs to have names of coyote
         
-        String descriptionTask = "Feeding - " + feedingTreat.getAnimal().getSPECIES() + " (" + Integer.toString(aniNumb) + ": " + nameString + ")";
+        String descriptionTask = "Feeding - " + feedingTreat.getAnimal().getSpecies() + " (" + Integer.toString(aniNumb) + ": " + nameString + ")";
 
         Task taskToAdd = new Task(0, descriptionTask, calcDuration, maxWind);
         feedingTreat.setAnimalTask(taskToAdd);

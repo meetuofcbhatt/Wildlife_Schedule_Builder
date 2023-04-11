@@ -61,11 +61,11 @@ public class Testing {
         Raccoon raccoon = new Raccoon("raccoon", 1);
 
 
-        assertEquals("Coyote was not created with the correct Species identification", "coyote", coyote.getSPECIES());
-        assertEquals("Beaver was not created with the correct Species identification", "beaver", beaver.getSPECIES());
-        assertEquals("Fox was not created with the correct Species identification", "fox", fox.getSPECIES());
-        assertEquals("Porcupine was not created with the correct Species identification", "porcupine", porcupine.getSPECIES());
-        assertEquals("Raccoon was not created with the correct Species identification", "raccoon", raccoon.getSPECIES());
+        assertEquals("Coyote was not created with the correct Species identification", "coyote", coyote.getSpecies());
+        assertEquals("Beaver was not created with the correct Species identification", "beaver", beaver.getSpecies());
+        assertEquals("Fox was not created with the correct Species identification", "fox", fox.getSpecies());
+        assertEquals("Porcupine was not created with the correct Species identification", "porcupine", porcupine.getSpecies());
+        assertEquals("Raccoon was not created with the correct Species identification", "raccoon", raccoon.getSpecies());
     }
     /**
      *  This test method tests the creating of FeedingTime objects for all the possible animals and ensures that the feeding times are correctly
@@ -226,36 +226,196 @@ public class Testing {
         treatment.setStartHour(1);
         assertEquals("Start hour should be updated to 1",1, treatment.getStartHour());
     }
+
+    /**
+     * Test the addTreatment() in the hour class
+     */
+    @Test
+    public void testAddTreatmentForHour() {
+        Fox fox = new Fox("steve", 2);
+        Hour hour = new Hour(12);
+        Treatment t1 = new Treatment(fox, new Task(1, "Checkup", 30, 60), 10, 2);
+        hour.addTreatment(t1);
+        ArrayList<Treatment> treatments = hour.getTreatments();
+        assertEquals(1, treatments.size());
+        assertTrue(treatments.contains(t1));
+    }
+
+    /**
+     * Tests the addFeedingTask() method to ensure that all the feeding task have been added
+     */
+    @Test
+    public void testAddFeedingTask() {
+        Coyote coyote = new Coyote("Brian", 5);
+        Hour hour = new Hour(12);
+        Treatment t1 = new Treatment(coyote, new Task(9, "Eyedrops", 15, 2), 12, 5);
+        hour.addFeedingTask(t1, 1, "Brian");
+        ArrayList<Treatment> treatments = hour.getTreatments();
+        assertEquals(1, treatments.size());
+        Treatment added = treatments.get(0);
+        assertEquals(15, added.getAnimalTask().getTaskDuration());
+        assertEquals(3, added.getAnimalTask().getMaxWindow());
+
+    }
+
+    /**
+     * Test the getInfor() method to ensure that the correect info is displayed when creating the schedule
+     */
+    @Test
+    public void testGetInfo() {
+        Hour hour = new Hour(12);
+        Raccoon raccoon = new Raccoon("John", 5);
+        Task task1 = new Task(1, "Checkup", 30, 2);
+        Task task2 = new Task(2, "Cage clean", 60, 3);
+        Treatment t1 = new Treatment(raccoon, task1, 12, 5);
+        Treatment t2 = new Treatment(raccoon, task2, 12, 5);
+        hour.addTreatment(t1);
+        hour.addTreatment(t2);
+        String info = hour.getInfo();
+        assertTrue(info.contains("12:00"));
+        assertTrue(info.contains("* Checkup (John)"));
+        assertTrue(info.contains("* Cage clean"));
+        assertFalse(info.contains("* Feeding"));
+    }
+
+    /**
+     * Testing the addBackup() to ensure that backup volunteer have been added at the correct time
+     */
+    @Test
+    public void testAddBackup() {
+        Hour hour = new Hour(12);
+        Beaver beaver = new Beaver("Mike", 5);
+        Treatment t1 = new Treatment(beaver, new Task(1, "Checkup", 30, 2), 10, 5);
+        Treatment t2 = new Treatment(beaver, new Task(2, "Cage clean", 60, 3), 11, 5);
+        hour.addTreatment(t1);
+        hour.addTreatment(t2);
+        try {
+            hour.addBackup();
+            fail("Expected IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            assertEquals("Not enough time present within the hour", e.getMessage());
+        }
+        assertEquals(false, hour.getBackupvolunteer());
+        assertTrue(hour.getminsleft() < 60);
+        hour.getTreatments().clear();
+        hour.addTreatment(t1);
+        hour.addBackup();
+        assertEquals(0, hour.getminsleft());
+        assertTrue(hour.getBackupvolunteer());
+    }
+
+    private Hour hour;
+    private Treatment treatment3;
+    private Treatment treatment4;
+    private Treatment treatment5;
+    
+    /**
+     * This method sets up the initial state for the test by creating instances of Porcupine, creating instances of Treatment for each
+     * animal, and all the treatments into the hour class. This method is annotated with @Before, which means that it will be executed
+     * before each test method.
+     */
+    @Before
+    public void setUp2() {
+        hour = new Hour(10);
+        Porcupine porc = new Porcupine("Ellis", 4);
+        Porcupine porc2 = new Porcupine("Ellis Jr", 5);
+        Porcupine porc3 = new Porcupine("Ellis Sr", 6);
+        treatment3 = new Treatment(porc, new Task(1, "Cage cleaning", 30, 2), 10, 4);
+        treatment4 = new Treatment(porc2, new Task(2, "Feeding", 45, 3),11,5);
+        treatment5 = new Treatment(porc3, new Task(3, "Health check", 15, 1),12,6);
+        hour.addTreatment(treatment3);
+        hour.addTreatment(treatment4);
+        hour.addTreatment(treatment5);
+    }
+    
+    /**
+    *This test method checks if the number of treatments at a particular hour is equal to the expected value.
+    */
+    @Test
+    public void testGetHourTreatmentsSize() {
+        assertEquals(3, hour.getHourTreatmentsSize());
+    }
+    /**
+    *This test method checks if the hour value of a particular hour object is equal to the expected value.
+    */
+    @Test
+    public void testGetHour() {
+        assertEquals(10, hour.getHour());
+    }
+    /**
+    *This test method checks if the hour string representation of a particular hour object is equal to the expected value.
+    */
+    @Test
+    public void testGethourStr() {
+        assertEquals("10:00", hour.gethourStr());
+    }
+    /**
+    This test method checks if the minutes left for treatments at a particular hour object is equal to the expected value.
+    */
+    @Test
+    public void testGetminsleft() {
+        assertEquals(60 - 30 - 45 - 15, hour.getminsleft());
+    }
+    /**
+    *This test method checks if the backup volunteer status of a particular hour object is false as expected.
+    */
+    @Test
+    public void testGetBackupvolunteer() {
+        assertFalse(hour.getBackupvolunteer());
+    }
+    /**
+    *This test method checks if a particular hour object's treatments list contains expected treatment objects.
+    */
+    @Test
+    public void testGetTreatments() {
+        assertTrue(hour.getTreatments().contains(treatment3));
+        assertTrue(hour.getTreatments().contains(treatment4));
+        assertTrue(hour.getTreatments().contains(treatment5));
+    }
+
     //Creating global objects to be used in the methods below
+    private ArrayList<Treatment> treatments;
+    private ArrayList<Coyote>allCoy;
+    private ArrayList<Fox>allFo;
+    private ArrayList<Porcupine>allPor;
+    private ArrayList<Beaver>allBea;
+    private ArrayList<Raccoon>allRac;
     private Treatment treatment1;
     private Treatment treatment2;
     private Scheduler scheduler;
-
 
     /**
      * This method sets up the initial state for the test by creating instances of Coyote and Fox, creating instances of Treatment for each
      * animal, and initializing the scheduler with treatment1. This method is annotated with @Before, which means that it will be executed
      * before each test method.
      */
-    // @Before
-    // public void setUp() {
-    //     Coyote coyote = new Coyote("oscar", 1);
-    //     Fox fox = new Fox("adam", 2);
-    //     treatment1 = new Treatment(coyote, new Task(2, "Rebandage leg wound", 20, 1), 10, 1);
-    //     treatment2 = new Treatment(fox, new Task(9, "Eyedrops", 35 , 1), 11, 2);
-    //     scheduler = new Scheduler(treatment1);
-    // }
+     @Before
+    public void setUp() {
+         Coyote coyote = new Coyote("oscar", 1);
+         Fox fox = new Fox("adam", 2);
+         treatments = new ArrayList<Treatment>();
+         treatment1 = new Treatment(coyote, new Task(2, "Rebandage leg wound", 20, 1), 10, 1);
+         treatment2 = new Treatment(fox, new Task(9, "Eyedrops", 35 , 1), 11, 2);
+         scheduler = new Scheduler(treatments, allCoy, allFo, allPor, allBea, allRac);
+     }
     // /**
     //  * Tests the addition of a new treatment object to the scheduler's list of treatments.
     //  */
-    // @Test
-    // public void testAddTreatment() {
-    //     scheduler.addTreatment(treatment2);
-    //     ArrayList<Treatment> treatments = scheduler.getTreatments();
-    //     assertEquals("The treatment.size() did not return the correct value",2, treatments.size());
-    //     assertTrue("The list of treatments should contain the previously added treatment1",treatments.contains(treatment1));
-    //     assertTrue("The list of treatments should contain the newly added treatment2",treatments.contains(treatment2));
-    // }
+     @Test
+     public void testAddTreatment() {
+         scheduler.addTreatment(treatment2);
+         ArrayList<Treatment> treatments = scheduler.getTreatments();
+         assertEquals("The treatment.size() did not return the correct value",1, treatments.size());
+         assertTrue("The list of treatments should contain the newly added treatment2",treatments.contains(treatment2));
+    }
+    /**
+     * Tests the getTreatments() method and ensures that the right object gets returned  
+     */
+    @Test
+    public void testGetTreatment(){
+        scheduler.addTreatment(treatment1);
+        assertEquals("The getTreatments() did not return the correct treatment object", treatment1, scheduler.getTreatments().get(0));
+    }
    
     // /**
     //  * Tests the functionality of the organize() method in the schedulers class. This method adds a new treatment (treatment2) to the scheduler,

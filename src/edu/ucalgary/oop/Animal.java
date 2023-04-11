@@ -23,7 +23,7 @@ abstract class Animal {
 		this.feedingTime = null;
 	}
 
-	public String getSPECIES() {
+	public String getSpecies() {
 		return this.SPECIES;
 	}
 
