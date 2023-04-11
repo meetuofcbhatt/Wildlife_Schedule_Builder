@@ -3,7 +3,6 @@ package edu.ucalgary.oop;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -45,10 +44,6 @@ public class GUIBackupVolunteerConfirmation extends JFrame implements ActionList
 
     public void actionPerformed(ActionEvent e){
         this.dispose();
-    }
-
-    public static void main(String[] args){
-        new GUIBackupVolunteerConfirmation(new Hour(2)).setVisible(true);
     }
 
 }

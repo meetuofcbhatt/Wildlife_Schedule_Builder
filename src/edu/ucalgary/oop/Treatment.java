@@ -2,7 +2,6 @@ package edu.ucalgary.oop;
 
 public class Treatment {
 
-    private FeedingTime feedingTime;
     private final int ANIMALID;
     private int startHour;
     private Animal animalTreatment;
@@ -76,15 +75,6 @@ public class Treatment {
 
     public void setAnimalTask(Task addedTasks){
         this.animalTask = addedTasks;
-    }
-
-    public static void main(String[] args){
-        
-        Treatment testTreatment = new Treatment(new Coyote("hi", 1), new Task(0, "description", 123, 123), 0, 0);
-        System.out.println(testTreatment.getAnimal().getName());
-        
-
-
     }
 
     public int getStartHour() {

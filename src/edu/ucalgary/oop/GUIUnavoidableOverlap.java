@@ -7,9 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.*;
-import java.util.ArrayList;
 
-import java.util.concurrent.Semaphore;
 
 
 public class GUIUnavoidableOverlap extends JFrame implements ActionListener, MouseListener{
@@ -18,9 +16,7 @@ public class GUIUnavoidableOverlap extends JFrame implements ActionListener, Mou
     private JPanel headerPanel;
     private JPanel submitPanel;
     private JLabel error;
-    private JLabel durationInstr;
     private JLabel starttimeInstr;
-    private JLabel deletedNotif;
     private JTextField starttimeInput;
     private JPanel reschedulePanel;
     private JPanel deletePanel;
@@ -84,7 +80,6 @@ public class GUIUnavoidableOverlap extends JFrame implements ActionListener, Mou
         // making the delete panel
 
         deletePanel = new JPanel();
-        deletedNotif = new JLabel("The error causing task has been deleted.");
         deleteConfirm = new JButton("Confirm");
         deleteAlert = new JLabel("Are you sure you want to delete the task?");
         deletePanel.add(deleteAlert);
@@ -214,12 +209,6 @@ public class GUIUnavoidableOverlap extends JFrame implements ActionListener, Mou
 
     public void mouseReleased(MouseEvent event){
         
-    }
- 
-
-    public static void main(String[] args){
-        // this main was made for the exclusive purpose of testing the GUI
-        new GUIUnavoidableOverlap(new Treatment(new Coyote("cool guy", 123), new Task(1, "example task 2", 3, 5), 4, 123)).setVisible(true);
     }
 
 }

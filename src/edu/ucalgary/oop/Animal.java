@@ -35,9 +35,6 @@ abstract class Animal {
 		return this.feedingTime;
 	}
 	
-	public void setFeedingTime(int feedingDuration, int prepTime, int startHour, int maxWindow) {
-		this.feedingTime = new FeedingTime(feedingDuration, prepTime, startHour, maxWindow);
-	}
 	
 	public String getName() {
 		return this.name;

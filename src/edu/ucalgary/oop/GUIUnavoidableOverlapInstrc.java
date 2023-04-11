@@ -3,10 +3,8 @@ package edu.ucalgary.oop;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-import javax.sql.rowset.spi.TransactionalWriter;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -22,7 +20,6 @@ public class GUIUnavoidableOverlapInstrc extends JFrame implements ActionListene
     private JPanel selectionPanel;
     private JPanel confirmPanel;
     private ArrayList<Treatment> possibleTreatments;
-    private String[] choices;
     private Hour errorHour;
 
     public GUIUnavoidableOverlapInstrc(Hour givenHour){
@@ -81,21 +78,6 @@ public class GUIUnavoidableOverlapInstrc extends JFrame implements ActionListene
 
     }
 
-
-    public static void main(String[] args){
-
-        Hour testHour = new Hour(3);
-
-        // ArrayList<Treatment> testArr= new ArrayList<Treatment>();        
-
-        testHour.addTreatment(new Treatment(new Beaver("steve", 12), new Task(1, "example task 1", 2, 4), 3,12));
-        testHour.addTreatment(new Treatment(new Beaver("guy", 123), new Task(1, "example task 2", 2, 4), 3,123));
-        testHour.addTreatment(new Treatment(new Beaver("guy2", 1234), new Task(1, "example task 3", 3, 6), 2,1234));
-
-        new GUIUnavoidableOverlapInstrc(testHour).setVisible(true);
-
-
-    }
     
 
 }

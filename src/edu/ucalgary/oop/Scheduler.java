@@ -15,10 +15,6 @@ public class Scheduler {
     private ArrayList<Raccoon>allRac;
     private ArrayList<Hour> finalHours;
     private Hour brokenHour;
-    
-    // public Scheduler(Treatment givenTreatments){
-    //     this.treatments.add(givenTreatments);
-    // }
 
     public Scheduler(ArrayList<Treatment>treatments, ArrayList<Coyote>coyAni, ArrayList<Fox>foAni, ArrayList<Porcupine>porAni, ArrayList<Beaver>beaAni, ArrayList<Raccoon>racAni)
     {
@@ -36,20 +32,6 @@ public class Scheduler {
     }
     public void addTreatment(Treatment givenTreatment){
 
-        // Should not need to use this code anymore, changed from an array to an ArrayList
-
-        // if (treatments == null) {
-        //     treatments = new Treatment[1];
-        //     treatments[0] = givenTreatment;
-        // } else {
-        //     Treatment[] newTreatments = new Treatment[treatments.length + 1];
-        //     for (int i = 0; i < treatments.length; i++) {
-        //         newTreatments[i] = treatments[i];
-        //     }
-        //     newTreatments[newTreatments.length - 1] = givenTreatment;
-        //     treatments = newTreatments;
-        // }    
-            
         this.treatments.add(givenTreatment);
 
     }
@@ -113,21 +95,6 @@ public class Scheduler {
         ArrayList<Porcupine> allPor = Por;
         ArrayList<Beaver> allBea = Bea;
         ArrayList<Raccoon> allRac = Rac;
-        // sorting treatmentarray by startHour
-
-        // for (int i = 0; i < treatmentarray.size() - 1; i++) {
-        //     int minIndex = i;
-        //     for (int j = i + 1; j < treatmentarray.size(); j++) {
-        //         if (treatmentarray.get(j).getStartHour() < treatmentarray.get(minIndex).getStartHour()) {
-        //             minIndex = j;
-        //         }
-        //     }
-        //     if (minIndex != i) {
-        //         Treatment temp = treatmentarray.get(i);
-        //         treatmentarray.set(i, treatmentarray.get(minIndex));
-        //         treatmentarray.set(minIndex, temp);
-        //     }
-        // }
 
         // sorting treatmentarray by MaxWindow
 
@@ -145,27 +112,6 @@ public class Scheduler {
             }
         }
 
-
-        // this.treatments = treatmentarray;
-
-        // ArrayList<Hour> organizedhours = new ArrayList<Hour>(24);                 // this should be sorted and cannot contain duplicates
-
-
-
-
-        // for(int i = 0; i < treatmentarray.size(); i++){
-        //     for(int j = 0; j <= 24; j++){
-        //         Hour temp_new_hour = new Hour(treatmentarray.get(i).getStartHour());
-        //         if(treatmentarray.get(i).getStartHour() == j){
-
-        //         }
-
-
-        //     }
-
-
-
-        // }
 
         ArrayList<Hour> completeHours = new ArrayList<Hour>(24);
         for(int i = 0; i < 24; i++)
@@ -244,7 +190,6 @@ public class Scheduler {
 
             boolean feedPlacement = false;//keep track if the job has been assigned.
             ArrayList<Integer> aniNumbHour = new ArrayList<Integer> (coyMax);
-            //{6,6,6} != {5,0,0}
             int feedNum = coyNum;//how many animals to feed.
             
             for(int k = 0; k < coyMax; k++)
@@ -387,54 +332,9 @@ public class Scheduler {
 
             }
         }
-        // if(HourtoAdd.getminsleft() >= (coyPre + (coyDur * coyNum)))
-        // {
-        //     //TODO: check if the animal ID is necessary here or not. Currently implied that it is NOT. 
-        //     Treatment treat = new Treatment(allCoy.get(0), null, coyStr, 0);
-        //     HourtoAdd.addFeedingTask(treat, allCoy.size());
-        // }
-        // else
-        // {
-        //     //half or less
-        //     boolean feedAnisOne = false;//means that feedingtask for first grouphas not been assigned to an hour.
-        //     boolean feedAniTwo = false; //means that feedingtask for second group has not been assigned to an hour.
 
-        //     int firstHour = Math.floorDiv(coyNum, 2);
-        //     int secHour = coyNum - firstHour;
-
-        //     for(int j = 0; j < coyMax; j++)
-        //     {
-        //         //iterate thorugh the maxWind for first group
-        //         if(!feedAnisOne)//and first group can be feed
-        //         {
-
-        //         }
-        //     }
-
-        //     for(int j = 0; j < coyMax; j++)
-        //     {
-        //         //iterate thorugh the maxWind for second group
-        //         if(!feedAniTwo)//and second group can be feed
-        //         {
-
-        //         }
-        //     }
-
-        //     //if either of them are false, try with backup volunteer.
-        //     if(!feedAniTwo || !feedAnisOne)
-        //     {
-        //         for(int k = 0; k < coyMax; k++)
-        //         {
-        //             Hour tempHour = completeHours.get(coyStr + k);//getting the right hour.
-        //             if(tempHour)
-        //         }
-        //     }
-
-
-        // }
         
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //TODO:
         //add the feeding task algo for rac
         coyNum = allRac.size();
         
@@ -1075,7 +975,6 @@ public class Scheduler {
         }
 
 
-        ///////
         //add cageCleaning for each animal. including orphanes.
         for(int i = 0; i < this.allCoy.size(); i++)
         {
@@ -1193,62 +1092,11 @@ public class Scheduler {
                     e.printStackTrace();
                 }
             }
-            // if(this.finalHours.get(l).getBackupvolunteer())
-            // {
-            //     System.out.print("Hour " +Integer.toString(l)+ ": "+ Integer.toString(this.finalHours.get(l).getminsleft()));
-            //     System.out.println(" [+ backup volunteer]");
-            // }
-            // else
-            // {
-            //     System.out.println("Hour " +Integer.toString(l)+ ": "+ Integer.toString(this.finalHours.get(l).getminsleft()));
-            // }
-            // this.finalHours.get(l).printTreatment();
-            // System.out.println();
         }
 
 
 
     }
 
-    // public static void main(String[] args){
-        
-    //     // try {
-	// 	// 	Connection con=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/EWR","oop","password");
-	// 	// 	Statement stmt = con.createStatement();
-	// 	// 	ResultSet rs = stmt.executeQuery("SELECT * FROM ANIMALS");
-	// 	// 	while (rs.next()) {
-	// 	// 		System.out.println(rs.getString("AnimalID") + ", " + rs.getString("AnimalNickname") + ", " + rs.getString("AnimalSpecies"));
-	// 	// 	}
-	// 	// 	con.close();
-	// 	// } catch (SQLException e) {
-	// 	// 	System.out.println("error happened");
-	// 	// 	e.printStackTrace();
-	// 	// }
-
-    //     // Treatment treatment1 = new Treatment(new Beaver("hello", 2), new Task(1, "task1", 3, 5), 12, 2);
-    //     // Treatment treatment2 = new Treatment(new Beaver("hi", 2), new Task(1, "task2", 3, 3), 1, 2);
-    //     // Treatment treatment3 = new Treatment(new Beaver("bingus", 2), new Task(1, "task3", 3, 2), 5, 2);
-    //     // Treatment treatment4 = new Treatment(new Beaver("lastguy", 2), new Task(1, "task1", 3, 6), 3, 2);
-
-    //     // Scheduler testscheduler = new Scheduler(treatment1);
-    //     // testscheduler.addTreatment(treatment2);
-    //     // testscheduler.addTreatment(treatment3);
-    //     // testscheduler.addTreatment(treatment4);
-
-    //     // System.out.println("unordered");
-
-    //     // for(int i = 0; i < testscheduler.getTreatments().size(); i++){
-    //     //     System.out.println(testscheduler.getTreatments().get(i).getAnimalTask().getMaxWindow());
-    //     // }
-
-    //     // System.out.println("Hours: ");
-    //     // testscheduler.organize();
-
-    //     // System.out.println("ordered");
-
-    //     // for(int i = 0; i < testscheduler.getTreatments().size(); i++){
-    //     //     System.out.println(testscheduler.getTreatments().get(i).getAnimalTask().getMaxWindow());
-    //     // }
-    // }   
 
 }
