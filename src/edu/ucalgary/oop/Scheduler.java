@@ -1,5 +1,7 @@
 package edu.ucalgary.oop;
 
+import java.io.*;
+import java.time.*;
 import java.util.*;
 // import java.sql.*;
 
@@ -1161,22 +1163,47 @@ public class Scheduler {
         }
 
         this.finalHours = completeHours;
-
+        System.out.println("Start:");
         for(int l = 0; l < this.finalHours.size(); l++)
         {
 
-            
-            if(this.finalHours.get(l).getBackupvolunteer())
-            {
-                System.out.print("Hour " +Integer.toString(l)+ ": "+ Integer.toString(this.finalHours.get(l).getminsleft()));
-                System.out.println(" [+ backup volunteer]");
+            completeHours.get(l).getInfo();
+
+            String data = completeHours.get(l).getInfo();
+            LocalDate newDate = LocalDate.now().plusDays(1);
+            System.out.println(newDate);
+            if (l == 0) {
+                try {
+                    FileWriter writer = new FileWriter("schedule.txt");
+                    data = "Schedule for " + newDate + "\n\n" + data;
+                    writer.write(data);
+                    writer.close();
+                } catch (IOException e) {
+                    System.out.println("An error occurred.");
+                    e.printStackTrace();
+                }
             }
-            else
-            {
-                System.out.println("Hour " +Integer.toString(l)+ ": "+ Integer.toString(this.finalHours.get(l).getminsleft()));
+            else {
+                try {
+                    FileWriter writer = new FileWriter("schedule.txt", true);
+                    writer.write(data);
+                    writer.close();
+                } catch (IOException e) {
+                    System.out.println("An error occurred.");
+                    e.printStackTrace();
+                }
             }
-            this.finalHours.get(l).printTreatment();
-            System.out.println();
+            // if(this.finalHours.get(l).getBackupvolunteer())
+            // {
+            //     System.out.print("Hour " +Integer.toString(l)+ ": "+ Integer.toString(this.finalHours.get(l).getminsleft()));
+            //     System.out.println(" [+ backup volunteer]");
+            // }
+            // else
+            // {
+            //     System.out.println("Hour " +Integer.toString(l)+ ": "+ Integer.toString(this.finalHours.get(l).getminsleft()));
+            // }
+            // this.finalHours.get(l).printTreatment();
+            // System.out.println();
         }
 
 
