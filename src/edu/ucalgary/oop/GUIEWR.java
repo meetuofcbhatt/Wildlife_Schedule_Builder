@@ -176,11 +176,7 @@ public class GUIEWR extends JFrame implements ActionListener{
         // Treatment treatment3 = new Treatment(new Beaver("bingus", 2), new Task(1, "task3", 3, 2), 5, 2);
         // Treatment treatment4 = new Treatment(new Beaver("lastguy", 2), new Task(1, "task1", 3, 6), 3, 2);
 
-        Scheduler testscheduler = new Scheduler(allTreatment.get(0));
-        for(int i = 1; i < allTreatment.size(); i++)
-        {
-            testscheduler.addTreatment(allTreatment.get(i));
-        }
+        Scheduler testscheduler = new Scheduler(allTreatment, allCoy, allFox, allPor, allBea, allRac);
         // testscheduler.addTreatment(treatment2);
         // testscheduler.addTreatment(treatment3);
         // testscheduler.addTreatment(treatment4);
@@ -196,20 +192,23 @@ public class GUIEWR extends JFrame implements ActionListener{
         try{
             testscheduler.organize();           // this should throw the unavoidable error exception
             // if you want to test the unavoidableoverlap exception just throw it here
-            throw new UnavoidableOverlapException();
+            // throw new UnavoidableOverlapException();
         }
         catch(UnavoidableOverlapException e){
             new GUIUnavoidableOverlap().setVisible(true);
+            Hour brokenHour = testscheduler.getBrokenHour();
+
+           System.out.println("This is an unavoidable overlap in Hour: " + Integer.toString(brokenHour.getHour()));
             
-            System.out.println("This is an unavoidable overlap");
+            
         }
         // put database exception
 
-        System.out.println("ordered");
+        // System.out.println("ordered");
 
-        for(int i = 0; i < testscheduler.getTreatments().size(); i++){
-            System.out.println(testscheduler.getTreatments().get(i).getAnimalTask().getMaxWindow());
-        }
+        // for(int i = 0; i < testscheduler.getTreatments().size(); i++){
+        //     System.out.println(testscheduler.getTreatments().get(i).getAnimalTask().getMaxWindow());
+        // }
 
         // System.out.println("Test allTreatment Iteration");
         // for(int i = 0; i < allTreatment.size(); i++)
