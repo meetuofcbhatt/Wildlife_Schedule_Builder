@@ -10,9 +10,9 @@ public class Hour {
     private boolean backupvolunteer = false;
 
     public Hour(int givenhour){
-        if(0 < givenhour  && givenhour >= 24){
+        if(0 <= givenhour && givenhour < 24){
             this.hour = givenhour;
-            this.hourstr = givenhour + ":00";
+            this.hourstr = Integer.toString(givenhour) + ":00";
         }
     }
 
@@ -68,6 +68,7 @@ public class Hour {
         }
 
         if(netmins + 60 <= 120){
+            new GUIBackupVolunteerConfirmation(this).setVisible(true);
             this.backupvolunteer = true;
             this.minsleft += 60;
         }
@@ -96,6 +97,10 @@ public class Hour {
 
     public boolean getBackupvolunteer(){
         return this.backupvolunteer;
+    }
+
+    public ArrayList<Treatment> getTreatments(){
+        return this.hourtreatments;
     }
 
 

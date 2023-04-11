@@ -11,6 +11,7 @@ public class Scheduler {
     private ArrayList<Porcupine>allPor;
     private ArrayList<Beaver>allBea;
     private ArrayList<Raccoon>allRac;
+    private ArrayList<Hour> finalHours;
     private Hour brokenHour;
     
     // public Scheduler(Treatment givenTreatments){
@@ -1159,21 +1160,22 @@ public class Scheduler {
             }
         }
 
+        this.finalHours = completeHours;
 
-        for(int l = 0; l < completeHours.size(); l++)
+        for(int l = 0; l < this.finalHours.size(); l++)
         {
 
             
-            if(completeHours.get(l).getBackupvolunteer())
+            if(this.finalHours.get(l).getBackupvolunteer())
             {
-                System.out.print("Hour " +Integer.toString(l)+ ": "+ Integer.toString(completeHours.get(l).getminsleft()));
+                System.out.print("Hour " +Integer.toString(l)+ ": "+ Integer.toString(this.finalHours.get(l).getminsleft()));
                 System.out.println(" [+ backup volunteer]");
             }
             else
             {
-                System.out.println("Hour " +Integer.toString(l)+ ": "+ Integer.toString(completeHours.get(l).getminsleft()));
+                System.out.println("Hour " +Integer.toString(l)+ ": "+ Integer.toString(this.finalHours.get(l).getminsleft()));
             }
-            completeHours.get(l).printTreatment();
+            this.finalHours.get(l).printTreatment();
             System.out.println();
         }
 

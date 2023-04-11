@@ -30,7 +30,16 @@ public class printSchedule{
       
         // });
         
+        
+        // boolean cont = true;
+
+        // while(cont){
+        //     new GUIEWR().setVisible(true);
+        // }
+
         new GUIEWR().setVisible(true);
+
+
         // transferred the content originally in main to the GUIEWR to make sure that the schedule is only generated and printed from there
 
     }

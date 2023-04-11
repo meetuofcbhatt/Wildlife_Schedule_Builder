@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.sql.*;
+import java.util.concurrent.locks.*;
 
 
 public class GUIEWR extends JFrame implements ActionListener{
@@ -189,19 +190,47 @@ public class GUIEWR extends JFrame implements ActionListener{
 
         System.out.println("Hours: ");
         
+        // call guiEWR at the end of the error loop.
+
+        // while(true){
+        //     try{
+        //         testscheduler.organize();           // this should throw the unavoidable error exception
+        //         // if you want to test the unavoidableoverlap exception just throw it here
+        //         // throw new UnavoidableOverlapException();
+        //         // cont = false;
+        //         break;
+        //     }
+        //     catch(UnavoidableOverlapException e){
+        //         Hour brokenHour = testscheduler.getBrokenHour();
+    
+        //         GUIUnavoidableOverlapInstrc gui = new GUIUnavoidableOverlapInstrc(brokenHour);          // change to brokenHour when done
+        //         gui.setVisible(true);
+        //         while(gui.isVisible()){
+        //             try{
+        //                 Thread.sleep(100);
+        //             }
+        //             catch(InterruptedException ex){
+        //                 ex.printStackTrace();
+        //             }
+        //         }
+        //         System.out.println("This is an unavoidable overlap in Hour: " + Integer.toString(brokenHour.getHour()));
+        //         // break;
+        //         continue;
+        //     }
+            
+        // }
+
         try{
             testscheduler.organize();           // this should throw the unavoidable error exception
             // if you want to test the unavoidableoverlap exception just throw it here
             // throw new UnavoidableOverlapException();
         }
         catch(UnavoidableOverlapException e){
-            new GUIUnavoidableOverlap().setVisible(true);
             Hour brokenHour = testscheduler.getBrokenHour();
-
-           System.out.println("This is an unavoidable overlap in Hour: " + Integer.toString(brokenHour.getHour()));
-            
-            
+            new GUIUnavoidableOverlapInstrc(brokenHour).setVisible(true);          // change to brokenHour when done
+            System.out.println("This is an unavoidable overlap in Hour: " + Integer.toString(brokenHour.getHour()));
         }
+
         // put database exception
 
         // System.out.println("ordered");
@@ -279,6 +308,7 @@ public class GUIEWR extends JFrame implements ActionListener{
         // }
         // fetching from SQL database should be done here
 
+        this.dispose();
 
 
     }
