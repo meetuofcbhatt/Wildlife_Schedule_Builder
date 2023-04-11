@@ -2,6 +2,8 @@ package edu.ucalgary.oop;
 
 import java.util.*;
 
+import javax.lang.model.util.ElementScanner14;
+
 public class Hour {
     private String hourstr;
     private int hour;
@@ -45,6 +47,51 @@ public class Hour {
                 System.out.println(hourtreatments.get(i).getAnimalTask().getDescription());
             }
         }
+    }
+
+    public String getInfo()
+    {
+        String finalResult = "";
+        //logic for adding onto the finalResult.
+
+        if(this.hourtreatments.size() > 0)//only execute this if there is something in this hour in the first place.
+        {
+            finalResult = finalResult + this.hourstr;
+
+            if(this.backupvolunteer)
+            {
+                finalResult = finalResult + " [+ backup volunteer]\n";
+            }
+            else
+            {
+                finalResult = finalResult + "\n";
+            }
+
+            for(int i = 0; i < hourtreatments.size(); i++)
+            {
+                //goes through how treatment ArrayList. if the treatments don't have 
+                if(hourtreatments.get(i).getAnimalTask().getDescription() != null)
+                {
+                    if(hourtreatments.get(i).getAnimalTask().getTaskID() != 0)//not cageClean nor feedingTask
+                    {
+                        finalResult = finalResult + "* " + hourtreatments.get(i).getAnimalTask().getDescription() + " ("+hourtreatments.get(i).getAnimal().getName() + ")\n";
+                    }
+                    else
+                    {
+                        finalResult = finalResult + "* " + hourtreatments.get(i).getAnimalTask().getDescription() + "\n";
+                    }
+                }
+                else if(i == hourtreatments.size() - 1)
+                {
+                    finalResult = finalResult + "* " + hourtreatments.get(i).getAnimalTask().getDescription();
+                }
+            }
+
+            finalResult = finalResult + "\n";
+
+        }
+        System.out.print(finalResult);
+        return finalResult;
     }
 
     // public String hourStr()

@@ -1161,22 +1161,22 @@ public class Scheduler {
         }
 
         this.finalHours = completeHours;
-
+        System.out.println("Start:");
         for(int l = 0; l < this.finalHours.size(); l++)
         {
 
-            
-            if(this.finalHours.get(l).getBackupvolunteer())
-            {
-                System.out.print("Hour " +Integer.toString(l)+ ": "+ Integer.toString(this.finalHours.get(l).getminsleft()));
-                System.out.println(" [+ backup volunteer]");
-            }
-            else
-            {
-                System.out.println("Hour " +Integer.toString(l)+ ": "+ Integer.toString(this.finalHours.get(l).getminsleft()));
-            }
-            this.finalHours.get(l).printTreatment();
-            System.out.println();
+            completeHours.get(l).getInfo();
+            // if(this.finalHours.get(l).getBackupvolunteer())
+            // {
+            //     System.out.print("Hour " +Integer.toString(l)+ ": "+ Integer.toString(this.finalHours.get(l).getminsleft()));
+            //     System.out.println(" [+ backup volunteer]");
+            // }
+            // else
+            // {
+            //     System.out.println("Hour " +Integer.toString(l)+ ": "+ Integer.toString(this.finalHours.get(l).getminsleft()));
+            // }
+            // this.finalHours.get(l).printTreatment();
+            // System.out.println();
         }
 
 
