@@ -4,7 +4,7 @@ public class Porcupine extends Crepuscular {
 	private final int CAGECLEANINGDURATION = 10;
 	
 	public Porcupine(String name, int animalID) {
-		super(name, animalID, "Porcupine", 5, 0);
+		super(name, animalID, "porcupine", 5, 0);
 	}
 	
 	public int getCageClean() {

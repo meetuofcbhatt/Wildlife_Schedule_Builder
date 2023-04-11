@@ -57,14 +57,22 @@ public class GUIEWR extends JFrame implements ActionListener{
         ArrayList<Raccoon> allRac = new ArrayList<>();
 
         ArrayList<Treatment> allTreatment = new ArrayList<>();
+        
         // do the SQL connection here
         try {
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/EWR","oop","password");
-			Statement stmtAnimals = con.createStatement();
+			// Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/EWR","oop","password");
+            Connection con=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/EWR","oop","password");
+            
+            Statement stmtAnimals = con.createStatement();
 			ResultSet animals = stmtAnimals.executeQuery("SELECT * FROM ANIMALS");
+            
             Statement stmtTreatments = con.createStatement();
             ResultSet treatments = stmtTreatments.executeQuery("SELECT * FROM TREATMENTS");
+           
             Statement stmtSpecificTasks = con.createStatement();
+
+            //create all the 
+
             // Create all the animals from the SQL
 			while (animals.next()) {
                 if (animals.getString("AnimalSpecies").equals("coyote")) {
@@ -92,15 +100,18 @@ public class GUIEWR extends JFrame implements ActionListener{
             // Create new Treatments out of all the animals, and put them into an Arraylist
             // Currently wrong, not creating thing correctly
             // Plan: get treatments.getInt("TaskID"), Query to get the tasks
-            while (treatments.next()) {
+            while (treatments.next()) 
+            {
                 String taskToFind = "SELECT * FROM TASKS WHERE TaskID = " + treatments.getString("TaskID");
                 ResultSet specificTask = stmtSpecificTasks.executeQuery(taskToFind);
                 // System.out.println(treatments.getString("AnimalID") + ", " + treatments.getString("StartHour") + ", " + treatments.getString("TaskID"));
-                while (specificTask.next()) {
+                while (specificTask.next()) 
+                {
                     // System.out.println(specificTask.getString("TaskID") + ", " + specificTask.getString("Description") + 
                     // ", " + specificTask.getString("Duration") + ", " + specificTask.getString("MaxWindow"));
                     for (Coyote coyoteAnimal: allCoy) {
-                        if (coyoteAnimal.getAnimalID() == treatments.getInt("AnimalID")) {
+                        if (coyoteAnimal.getAnimalID() == treatments.getInt("AnimalID")) 
+                        {
                             allTreatment.add(new Treatment(coyoteAnimal, new Task(specificTask.getInt("TaskID"), 
                                 specificTask.getString("Description"), specificTask.getInt("Duration"), 
                                 specificTask.getInt("MaxWindow")), 
@@ -131,7 +142,8 @@ public class GUIEWR extends JFrame implements ActionListener{
                                 treatments.getInt("StartHour"), treatments.getInt("AnimalID")));
                         }
                     }
-                    for (Raccoon raccoonAnimal: allRac) {
+                    for (Raccoon raccoonAnimal: allRac) 
+                    {
                         if (raccoonAnimal.getAnimalID() == treatments.getInt("AnimalID")) {
                             allTreatment.add(new Treatment(raccoonAnimal, new Task(specificTask.getInt("TaskID"), 
                                 specificTask.getString("Description"), specificTask.getInt("Duration"), 
@@ -141,6 +153,7 @@ public class GUIEWR extends JFrame implements ActionListener{
                     }
                 }
             }
+
             // for (Treatment treatment: allTreatment) {
             //     System.out.println(treatment.getStartHourString());
             // }
@@ -158,15 +171,15 @@ public class GUIEWR extends JFrame implements ActionListener{
 		}
 
         // JOptionPane.showMessageDialog(null, "this button works");
-        Treatment treatment1 = new Treatment(new Beaver("hello", 2), new Task(1, "task1", 3, 5), 12, 2);
-        Treatment treatment2 = new Treatment(new Beaver("hi", 2), new Task(1, "task2", 3, 3), 1, 2);
-        Treatment treatment3 = new Treatment(new Beaver("bingus", 2), new Task(1, "task3", 3, 2), 5, 2);
-        Treatment treatment4 = new Treatment(new Beaver("lastguy", 2), new Task(1, "task1", 3, 6), 3, 2);
+        // Treatment treatment1 = new Treatment(new Beaver("hello", 2), new Task(1, "task1", 3, 5), 12, 2);
+        // Treatment treatment2 = new Treatment(new Beaver("hi", 2), new Task(1, "task2", 3, 3), 1, 2);
+        // Treatment treatment3 = new Treatment(new Beaver("bingus", 2), new Task(1, "task3", 3, 2), 5, 2);
+        // Treatment treatment4 = new Treatment(new Beaver("lastguy", 2), new Task(1, "task1", 3, 6), 3, 2);
 
-        Scheduler testscheduler = new Scheduler(treatment1);
-        testscheduler.addTreatment(treatment2);
-        testscheduler.addTreatment(treatment3);
-        testscheduler.addTreatment(treatment4);
+        Scheduler testscheduler = new Scheduler(allTreatment, allCoy, allFox, allPor, allBea, allRac);
+        // testscheduler.addTreatment(treatment2);
+        // testscheduler.addTreatment(treatment3);
+        // testscheduler.addTreatment(treatment4);
 
         System.out.println("unordered");
 
@@ -175,25 +188,33 @@ public class GUIEWR extends JFrame implements ActionListener{
         }
 
         System.out.println("Hours: ");
+        
         try{
             testscheduler.organize();           // this should throw the unavoidable error exception
             // if you want to test the unavoidableoverlap exception just throw it here
-            throw new UnavoidableOverlapException();
+            // throw new UnavoidableOverlapException();
         }
         catch(UnavoidableOverlapException e){
             new GUIUnavoidableOverlap().setVisible(true);
+            Hour brokenHour = testscheduler.getBrokenHour();
+
+           System.out.println("This is an unavoidable overlap in Hour: " + Integer.toString(brokenHour.getHour()));
             
-            System.out.println("This is an unavoidable overlap");
+            
         }
         // put database exception
 
-        System.out.println("ordered");
+        // System.out.println("ordered");
 
-        for(int i = 0; i < testscheduler.getTreatments().size(); i++){
-            System.out.println(testscheduler.getTreatments().get(i).getAnimalTask().getMaxWindow());
-        }
+        // for(int i = 0; i < testscheduler.getTreatments().size(); i++){
+        //     System.out.println(testscheduler.getTreatments().get(i).getAnimalTask().getMaxWindow());
+        // }
 
-
+        // System.out.println("Test allTreatment Iteration");
+        // for(int i = 0; i < allTreatment.size(); i++)
+        // {
+        //     System.out.println("i: " + Integer.toString(i) + "MaxWind: " + Integer.toString(allTreatment.get(i).getAnimalTask().getMaxWindow()));
+        // }
 
        
 

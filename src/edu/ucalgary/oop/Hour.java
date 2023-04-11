@@ -20,7 +20,22 @@ public class Hour {
         this.hourtreatments.add(giveTreatment);
         this.minsleft -= giveTreatment.getAnimalTask().getTaskDuration();
     }
-    
+    public void addFeedingTask(Treatment feedingTreat, int aniNumb, String nameString)
+    {
+        //basically, use FeedingTime obj in Treatment Obj to calculate the correct duration for the Task obj 'AnimalTask' and add that to feedTreat, which will go to it's approriate treatment obj ArrayList in hour.
+        int dur = feedingTreat.getAnimal().getFeedingTime().getFeedingDuration();
+        int prep = feedingTreat.getAnimal().getFeedingTime().getPrepTime();
+        int maxWind = feedingTreat.getAnimal().getFeedingTime().getMaxWindow();
+        int calcDuration = prep + (aniNumb * dur);
+        //descrption of task needs to have names of coyote
+        
+        String descriptionTask = "Feeding - " + feedingTreat.getAnimal().getSPECIES() + " (" + Integer.toString(aniNumb) + ": " + nameString + ")";
+
+        Task taskToAdd = new Task(0, descriptionTask, calcDuration, maxWind);
+        feedingTreat.setAnimalTask(taskToAdd);
+        this.hourtreatments.add(feedingTreat);
+        this.minsleft -= calcDuration;
+    }
     public void printTreatment()
     {
         for(int i = 0; i < hourtreatments.size(); i++)
@@ -32,6 +47,10 @@ public class Hour {
         }
     }
 
+    // public String hourStr()
+    // {
+    //     String finalResult = this.gethourStr();
+    // }
     public void addBackup(){
         // if(this.backupvolunteer){
         //     this.backupvolunteer = false;
