@@ -1,5 +1,9 @@
 package edu.ucalgary.oop;
-
+/**
+* The Schedule class represents a schedule of Treatments ordered by day. It contains a private * string variable for the scheduled day, an array of Treatment objects representing the ordered *treatments, and a Scheduler object representing the final scheduler.
+* @author Sahib Thethi
+* @since April 2023 
+*/
 import java.io.*;
 import java.time.*;
 import java.util.*;
@@ -15,7 +19,13 @@ public class Scheduler {
     private ArrayList<Raccoon>allRac;
     private ArrayList<Hour> finalHours;
     private Hour brokenHour;
-
+/** 
+* The Scheduler class represents a scheduler that takes in a list of treatments and organizes *them based on their start time and duration. The scheduler ensures that each treatment is *assigned to an available hour slot based on the maximum window of the task. In case of *unavoidable overlap, it throws an UnavoidableOverlapException.
+*The class provides methods for adding treatments to the list, getting the list of treatments and *organizing them.
+* @author Sahib Thethi
+* @author Meet Bhatt
+* @since April 2023
+*/
     public Scheduler(ArrayList<Treatment>treatments, ArrayList<Coyote>coyAni, ArrayList<Fox>foAni, ArrayList<Porcupine>porAni, ArrayList<Beaver>beaAni, ArrayList<Raccoon>racAni)
     {
         this.treatments = treatments;
@@ -30,15 +40,28 @@ public class Scheduler {
     {
         return this.brokenHour;
     }
+     /**
+    * Adds a treatment to the list of treatments.
+    * @param givenTreatment, The treatment to be added to the list.
+    */
+
     public void addTreatment(Treatment givenTreatment){
 
         this.treatments.add(givenTreatment);
 
     }
-    
+     /**
+    * Returns the list of treatments.
+    * @return The list of treatments.
+    */
     public ArrayList<Treatment> getTreatments(){
         return this.treatments;
     }
+    /**
+    * Organizes the list of treatments based on their start time and duration and assigns each treatment to an available
+    * hour slot based on the maximum window of the task. In case of unavoidable overlap, it throws an UnavoidableOverlapException.
+    * @throws UnavoidableOverlapException If there is no available hour slot for a treatment.
+    */
 
     public void organize() throws UnavoidableOverlapException
     {

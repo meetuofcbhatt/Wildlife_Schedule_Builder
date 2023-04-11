@@ -1,4 +1,10 @@
 package edu.ucalgary.oop;
+/**
+* The GUIUnavoidableOverlap class represents the GUI for when there is an unavoidable *overlap in the schedule. 
+* It allows the user to reschedule the task, delete the task causing the overlap or make the *timeframe more lenient. 
+* @author Youssef Hamed
+* @since April 2023
+*/
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,7 +35,10 @@ public class GUIUnavoidableOverlap extends JFrame implements ActionListener, Mou
     private Treatment errorTreatment;
 
 
-    
+    /**
+ * Constructor for the GUIUnavoidableOverlap class.
+ * Sets up the graphical user interface and its components.
+ */
     public GUIUnavoidableOverlap(Treatment givenTreatment){
         super("Error: Unavoidable Overlap");
         setupUOGUI(givenTreatment);
@@ -37,6 +46,9 @@ public class GUIUnavoidableOverlap extends JFrame implements ActionListener, Mou
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+/**
+ * Sets up the graphical user interface and its components.
+ */
 
     public void setupUOGUI(Treatment givenTreatment){
         
@@ -117,6 +129,13 @@ public class GUIUnavoidableOverlap extends JFrame implements ActionListener, Mou
         this.add(mainPanel, BorderLayout.CENTER);
         // this.add(reschedulePanel,BorderLayout.CENTER);
     }
+/**
+ * Responds to an ActionEvent by changing the panel displayed on the GUI according to user input.
+ * If the "Reschedule Task" option is selected, it handles the input when the confirm button is clicked.
+ * If the "Delete Task" option is selected, it handles the input when the confirm button is clicked.
+ * If the "Make timeframe more lenient" option is selected, it handles the input when the confirm button is clicked.
+ * @param e the ActionEvent to be handled
+ */
 
     public void actionPerformed(ActionEvent e){
         cardLayout.show(mainPanel, (String)cb.getSelectedItem());
@@ -188,7 +207,11 @@ public class GUIUnavoidableOverlap extends JFrame implements ActionListener, Mou
 
 
     }
-
+/**
+ * Handles the user's mouse click on the input fields for the duration, start time, and maximum *window.
+ * Clears the field when clicked.
+ * @param event The mouse click event
+ */
     public void mouseClicked(MouseEvent event){
         if(event.getSource().equals(starttimeInput)){
             starttimeInput.setText("");

@@ -1,5 +1,12 @@
 package edu.ucalgary.oop;
+/**
 
+The GUIUnavoidableOverlapInstrc class provides a graphical user interface for selecting a treatment
+to modify due to an unavoidable overlap in schedule. This class extends JFrame and implements the
+ActionListener interface to handle user interactions with the interface.
+@author Youssef Hamed
+@since April 2023
+*/
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,7 +28,12 @@ public class GUIUnavoidableOverlapInstrc extends JFrame implements ActionListene
     private JPanel confirmPanel;
     private ArrayList<Treatment> possibleTreatments;
     private Hour errorHour;
-
+/**
+ * Constructs a GUIUnavoidableOverlapInstrc object with a given Hour object, which contains the treatments
+ * that are overlapping.
+ * 
+ * @param givenHour the Hour object containing the treatments that are overlapping
+ */
     public GUIUnavoidableOverlapInstrc(Hour givenHour){
         super("Please select one of the following tasks to modify");
         this.possibleTreatments = givenHour.getTreatments();
@@ -30,7 +42,12 @@ public class GUIUnavoidableOverlapInstrc extends JFrame implements ActionListene
         setSize(500, 150);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-
+/**
+ * Sets up the graphical user interface with a JComboBox containing the treatments that are overlapping
+ * and a JButton to confirm the selection.
+ * 
+ * @param givenTreatments an ArrayList of Treatment objects containing the treatments that are overlapping
+ */
     public void setupUOIGUI(ArrayList<Treatment> givenTreatments){
 
         instruction = new JLabel("There is an error at " + errorHour.gethourStr() + ". Please select one of the following activities to shift: ");
@@ -63,7 +80,13 @@ public class GUIUnavoidableOverlapInstrc extends JFrame implements ActionListene
         this.add(confirmPanel, BorderLayout.PAGE_END);
 
     }
-
+/**
+ * Handles user interactions with the graphical user interface. If the user selects the "Confirm"
+ * button, the index of the selected treatment is printed to the console and a new GUIUnavoidableOverlap
+ * object is created with the selected Treatment object.
+ * 
+ * @param e the ActionEvent object representing the user interaction
+ */
     public void actionPerformed(ActionEvent e){
         Object src = e.getSource();
 

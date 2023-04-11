@@ -417,30 +417,6 @@ public class Testing {
         assertEquals("The getTreatments() did not return the correct treatment object", treatment1, scheduler.getTreatments().get(0));
     }
    
-    // /**
-    //  * Tests the functionality of the organize() method in the schedulers class. This method adds a new treatment (treatment2) to the scheduler,
-    //  *  calls the organize() method and then checks if the treatments are properly organized.
-    //  * @throws UnavoidableOverlapException if there is an unavoidable overlap between two treatments
-    //  */
-    // @Test
-    // public void testOrganize() throws UnavoidableOverlapException {
-    //     scheduler.addTreatment(treatment2);
-    //     scheduler.organize();
-    //     ArrayList<Treatment> treatments  = scheduler.getTreatments();
-    //     assertEquals( "Expected the treatments ArrayList to have size 2, but instead it had size <actual size>",2, treatments.size());
-    //     assertEquals("Expected the first treatment to be <expected treatment>, but instead it was <actual treatment>",treatment1, treatments.get(0));
-    //     assertEquals("Expected the second treatment to be <expected treatment>, but instead it was <actual treatment>",treatment2, treatments.get(1));
-    // }
-   
-    // // @Test(expected = UnavoidableOverlapException.class)
-    // // public void testOrganizeWithOverlap() throws UnavoidableOverlapException {
-    // //     Beaver beaver = new Beaver("john", 3);
-    // //     Treatment treatment3 = new Treatment(beaver, new Task(9, "Eyedrops", 35, 1), 11, 3);
-    // //     scheduler.addTreatment(treatment2);
-    // //     scheduler.addTreatment(treatment3);
-    // //     scheduler.organize();
-    // // }
-   
 }
 
 

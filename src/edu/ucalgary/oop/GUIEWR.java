@@ -1,4 +1,10 @@
 package edu.ucalgary.oop;
+/**
+* This is the GUI class that extends the JFram to display a window to the user and implements *ActionListener to listen to the user’s actions
+* This class is creating the Graphic User Interface in which the users will see when running the *code and inform the user of any errors that is preventing the algorithm from producing the schedule *for the day. If there are unavoidable errors, the GUI will also prompt the user to adjust the *database.
+* @author Youssef Hamed
+* @since April 2023
+*/
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +17,9 @@ import java.sql.*;
 public class GUIEWR extends JFrame implements ActionListener{
 
     private JLabel instructions;
+/**
+ * The constructor sets up the JFrame and calls the setupGUI method to add components to the *GUI.
+ */  
 
     public GUIEWR(){
         super("Generate a Schedule");
@@ -19,8 +28,9 @@ public class GUIEWR extends JFrame implements ActionListener{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
-
-
+/**
+ * The setupGUI method sets up the components of the GUI. It creates a label, a button, and *two panels for the label and button, respectively.
+ */
     public void setupGUI(){
         instructions = new JLabel("Please click the button in order to generate tomorrow's schedule");
         JButton generateSchedule = new JButton("Generate");
@@ -39,7 +49,12 @@ public class GUIEWR extends JFrame implements ActionListener{
         this.add(submitPanel, BorderLayout.PAGE_END);
 
     }
-
+    /**
+    This method is called when an event occurs in the GUI. It retrieves information from a MySQL database about the animals 
+    and treatments and stores them in ArrayLists. It then creates new Treatment objects for each treatment and adds them to 
+    the allTreatment ArrayList. The Treatment class represents a single treatment that needs to be performed on an animal at 
+    a specific time, and it contains information about the animal, the task to be performed, and the start time of the treatment.
+    */
     public void actionPerformed(ActionEvent event){
 
         //make animal list

@@ -1,27 +1,58 @@
 package edu.ucalgary.oop;
+/**
+* The Hour class represents an hour in a schedule for animal treatments. It contains lots of *information about the specific hour, the treatments assigned to the hour and whether a backup *volunteer is available for the hour
+* @author Youssef Hamed
+* @author Meet Bhatt
+* @April 2023
+*/
 
 import java.util.*;
 
-
-
 public class Hour {
-    private String hourstr;
+     /**
+    * String representation of the hour
+    */
+    private String hourStr;
+     /**
+    * Specific hour of the day represented by this object.
+    */
     private int hour;
-    private int minsleft = 60;
+    /**
+    *  The number of minutes left in the hour. It is initialized to 60 minutes when the object is *created.
+    */
+    private int minsLeft = 60;
+     /**
+    * The array list of treatments that are assigned to this hour
+    */
     private ArrayList<Treatment> hourtreatments = new ArrayList<Treatment>();
-    private boolean backupvolunteer = false;
-
-    public Hour(int givenhour){
-        if(0 <= givenhour && givenhour < 24){
-            this.hour = givenhour;
-            this.hourstr = Integer.toString(givenhour) + ":00";
+    /**
+    * To check whether a backup volunteer is needed for this hour. It is initialized to false when *created. 
+    */
+    private boolean backupVolunteer = false;
+    /**
+    * Constructs a new Hour object with the given hour of the day.
+    * @param givenHour, The hour of the day represented by this object
+    */
+    public Hour(int givenHour){
+        if(0 <= givenHour && givenHour < 24){
+            this.hour = givenHour;
+            this.hourStr = Integer.toString(givenHour) + ":00";
         }
     }
-
+    /**
+    * Adds a treatment to the list of treatments assigned to this hour
+    * @param givenTreatment, The treatment to be assigned to this hour
+    */
     public void addTreatment(Treatment giveTreatment){
         this.hourtreatments.add(giveTreatment);
-        this.minsleft -= giveTreatment.getAnimalTask().getTaskDuration();
+        this.minsLeft -= giveTreatment.getAnimalTask().getTaskDuration();
     }
+    /**
+     * Adds a Feeding Task to the schedule to be printed out
+     * @param feedingTreat
+     * @param aniNumb
+     * @param nameString
+     */
     public void addFeedingTask(Treatment feedingTreat, int aniNumb, String nameString)
     {
         //basically, use FeedingTime obj in Treatment Obj to calculate the correct duration for the Task obj 'AnimalTask' and add that to feedTreat, which will go to it's approriate treatment obj ArrayList in hour.
@@ -36,8 +67,11 @@ public class Hour {
         Task taskToAdd = new Task(0, descriptionTask, calcDuration, maxWind);
         feedingTreat.setAnimalTask(taskToAdd);
         this.hourtreatments.add(feedingTreat);
-        this.minsleft -= calcDuration;
+        this.minsLeft -= calcDuration;
     }
+     /**
+    * Prints the description of each treatment assigned to this hour
+    */
     public void printTreatment()
     {
         for(int i = 0; i < hourtreatments.size(); i++)
@@ -48,7 +82,10 @@ public class Hour {
             }
         }
     }
-
+    /**
+    * Returns all the information to be displayed in the schedule.
+    * @return The final result of the info
+    */
     public String getInfo()
     {
         String finalResult = "";
@@ -56,9 +93,9 @@ public class Hour {
 
         if(this.hourtreatments.size() > 0)//only execute this if there is something in this hour in the first place.
         {
-            finalResult = finalResult + this.hourstr;
+            finalResult = finalResult + this.hourStr;
 
-            if(this.backupvolunteer)
+            if(this.backupVolunteer)
             {
                 finalResult = finalResult + " [+ backup volunteer]\n";
             }
@@ -94,19 +131,11 @@ public class Hour {
         return finalResult;
     }
 
-    // public String hourStr()
-    // {
-    //     String finalResult = this.gethourStr();
-    // }
+    /**
+    * Adds a backup volunteer to this hour if required by the schedule
+    * @throws IllegalArgumentException If there is not enough time left in the hour to add a *backup volunteer.
+    */
     public void addBackup(){
-        // if(this.backupvolunteer){
-        //     this.backupvolunteer = false;
-        //     this.hour -= 60;
-        // }
-        // else{
-        //     this.backupvolunteer = true;
-        //     this.hour += 60;
-        // }
 
         int netmins = 0;
             
@@ -116,8 +145,8 @@ public class Hour {
 
         if(netmins + 60 <= 120){
             new GUIBackupVolunteerConfirmation(this).setVisible(true);
-            this.backupvolunteer = true;
-            this.minsleft += 60;
+            this.backupVolunteer = true;
+            this.minsLeft += 60;
         }
         else{
             throw new IllegalArgumentException("Not enough time present within the hour");
@@ -125,27 +154,46 @@ public class Hour {
 
 
     }
-
+    /** 
+    * Returns the number of treatments assigned to this hour.
+    * @return The number of treatments.
+   */
     public int getHourTreatmentsSize()
     {
         return this.hourtreatments.size();
     }
+     /**
+    * Returns the hour of the day represented by this object.
+   * @return The hour of the day.
+    */
     public int getHour(){
         return this.hour;
     }
-
+    /**
+    * Returns The string representation of the hour of the day represented by this object.
+    * @return The string representation of the hour of the day
+    */
     public String gethourStr(){
-        return this.hourstr;
+        return this.hourStr;
     }
-
+    /**
+    * Returns The number of minutes left in this hour.
+   * @return The number of minutes left.
+    */
     public int getminsleft(){
-        return this.minsleft;
+        return this.minsLeft;
     }
-
+    /**
+    * Returns The status of the backup volunteer for this hour.
+    * @return The status of the backup volunteer.
+    */
     public boolean getBackupvolunteer(){
-        return this.backupvolunteer;
+        return this.backupVolunteer;
     }
-
+    /**
+     * Returns the array list of all the treatments added to the list
+     * @return the array list of all the treatments
+     */
     public ArrayList<Treatment> getTreatments(){
         return this.hourtreatments;
     }
